@@ -1,0 +1,974 @@
+<html>
+<head>
+<meta charset="UTF-8" http-equiv="x-ua-compatible" content="IE=11,IE=edge,chrome=1">
+<HTA:APPLICATION ID="oHTA"
+    APPLICATIONNAME="备份还原开始菜单GUI beta v0.5 By --@YUPHIZ"
+    BORDER="normal"
+    BORDERSTYLE="normal"
+    CAPTION="yes"
+    ICON="RBST.ico1"
+    MAXIMIZEBUTTON="yes"
+    MINIMIZEBUTTON="yes"
+    NAVIGABLE="yes"
+    SHOWINTASKBAR="yes"
+    SINGLEINSTANCE="yes"
+    SCROLL="yes"
+    SYSMENU="yes"
+    VERSION="0.5"
+    WINDOWSTATE="normal"/>
+<!-- '声明
+'脚本：备份还原开始菜单
+'版本：beta 0.5
+'说明：本脚本可以备份和还原开始菜单布局
+
+
+'作者：YUPHIZ
+'版权：此脚本版权归YUPHIZ所有，备份还原方法借鉴BackupSML和winaero tweaker，并优化改进
+    '凡用此脚本从事法律不允许的事情的，均与本作者无关
+    '此脚本遵循 gpl3.0 协议 -->
+<script language="JavaScript" defer="defer">
+    window.offscreenBuffering = true;
+    var Shell = new ActiveXObject("WScript.Shell")
+    var FSO= new ActiveXObject("Scripting.FileSystemObject")
+    
+    PathOfCurrenScript = window.location.pathname
+    PathOfCurrenScript = FSO.GetParentFolderName(PathOfCurrenScript)
+    PathOfCurrenScript = PathOfCurrenScript.substring(1,PathOfCurrenScript.length)
+
+    ratio = screen.height / 1080
+
+    x=ratio * 740
+    y=ratio * 820
+    mx=(screen.width-x)/2
+    my=(screen.height-y)/2
+
+    window.onload = function(){
+        window.resizeTo(x,y)
+        LastWidth = document.body.offsetWidth;
+        window.moveTo(mx,my)
+        document.title="备份还原开始菜单GUI beta v0.5 By --@YUPHIZ"
+        setTheme()
+        Load_WindowStyle(ratio)
+        if (!(FSO.FileExists(PathOfCurrenScript+"\\config.json"))){
+            var outFile = FSO.CreateTextFile(PathOfCurrenScript+"\\config.json", true)
+            JsonDataFront = "{ \n\r"
+            JsonDataBack = "\n\r}"
+            JsonDataMiddle = ""
+                + "\"Path\":\"\",\n\r"
+                + "\"BackUpTaskBar\":true,\n\r"
+                + "\"BeforeRestore\":true,\n\r"
+                + "\"SeletcRestoreFolderByCustom\":false,\n\r"
+                + "\"TriggerDay\":0,\n\r"
+                + "\"DeleteBeforeDay\":null,\n\r"
+                + "\"DeleteToReCycleBin\":true,\n\r"
+                + "\"RestoreStartMode\":1,\n\r"
+                + "\"RestoreTaskBarMode\":0,\n\r"
+                + "\"LastRestorePath\":\"\",\n\r"
+                + "\"AutoClose\":false"
+            JsonData = JsonDataFront + JsonDataMiddle + JsonDataBack
+
+            outFile.Write(JsonData)
+            outFile.Close()
+            var outFile = Nothing
+        }
+
+        LoadJsonConfig()
+        SetShortCutIco()
+    }
+    
+    function SetShortCutIco(){
+        ShortCutIconPath = FSO.GetParentFolderName(PathOfCurrenScript)
+        if (FSO.FileExists(ShortCutIconPath+"\\双击运行_备份还原开始菜单.lnk")){
+            var ShortCut = Shell.createShortcut(ShortCutIconPath+"\\双击运行_备份还原开始菜单.lnk")
+
+            CurrentIcon = Shell.ExpandenVironmentStrings(ShortCut.IconLocation)
+            SetIcon = Shell.ExpandenVironmentStrings(PathOfCurrenScript+"\\RBST.ico1,0")
+
+            if (CurrentIcon !==SetIcon){        //H//
+                ShortCut.IconLocation = SetIcon
+                ShortCut.save()
+            }
+        }
+    }
+
+    function Load_WindowStyle(ratio){
+
+        var oHead = document.getElementsByTagName("head")(0)
+        var oStyle = document.createElement("style")
+        oStyle.type="text/css"
+        oHead.appendChild(oStyle)
+        var oCss = oStyle.sheet
+
+        oCss.addRule("body","zoom:"+ ratio +";")
+        oCss.addRule("#bodybox","zoom:"+ ratio +";")
+        oCss.addRule("#TitleBar","zoom:"+ ratio)
+    }
+
+
+
+    function LoadJsonConfig(){
+        var oFile = FSO.opentextfile(PathOfCurrenScript+"/config.json",1,true)
+        contents = oFile.readall()
+        var ConfigJson = JSON.parse(contents)
+        var TaskSch_Config = get_SchTask()
+
+        Path = ConfigJson.Path
+
+        // 备份设置
+        var inputfol = document.getElementsByTagName("input")(0)
+        if (!Path) {
+            inputfol.value = ".\\开始菜单备份"
+        }else if(Path.indexOf("\\开始菜单备份") < 0 ) {
+            inputfol.value = Path
+        }
+
+        var inputCheckboxTaskBar = document.getElementsByClassName("checkbox")(0)
+        inputCheckboxTaskBar.checked = ConfigJson.BackUpTaskBar
+        
+        var input_BackupDay = document.getElementsByClassName("inputDay")(0)
+        if (!TaskSch_Config[0] || parseInt(TaskSch_Config[1]) ==0){
+            input_BackupDay.value = 0
+        }else if(TaskSch_Config[0] && parseInt(TaskSch_Config[1]) !==0){
+            input_BackupDay.value = TaskSch_Config[1]
+        }else{
+            input_BackupDay.value = ConfigJson.TriggerDay
+        }
+
+        var input_DeleteDay = document.getElementsByClassName("inputDay")(1)
+        input_DeleteDay.value = ConfigJson.DeleteBeforeDay
+        
+        // 还原设置
+        var inputCheckbox_delToBin = document.getElementsByClassName("checkbox")(1)
+        inputCheckbox_delToBin.checked = ConfigJson.DeleteToReCycleBin
+        
+        var select_Start = document.getElementsByClassName("List1")(0)
+        select_Start.value = ConfigJson.RestoreStartMode
+
+        var select_TaskBar = document.getElementsByClassName("List1")(1)
+        select_TaskBar.value = ConfigJson.RestoreTaskBarMode
+        
+        var inputCheckbox_BeforeRestore = document.getElementsByClassName("checkbox")(2)
+        inputCheckbox_BeforeRestore.checked = ConfigJson.BeforeRestore
+    }
+
+
+    function setTheme() {
+
+        curWidth = document.body.offsetWidth;
+        if (curWidth !== LastWidth ){
+            ratio = curWidth / 725
+            LastWidth = document.body.offsetWidth;
+            Load_WindowStyle(ratio)
+        }
+
+        AppStyle = Shell.RegRead("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\AppsUseLightTheme")
+
+        CurrentTheme = document.bgColor
+
+        if ((CurrentTheme !== "#eeeeef" && AppStyle == 1) || (CurrentTheme !== "#333336" && AppStyle == 0)) {
+            isNeedChangeTheme = true
+        }else{
+            isNeedChangeTheme = false
+        }
+        if (isNeedChangeTheme) {
+
+            var oHead = document.getElementsByTagName("head")(0)
+            var oStyle = document.createElement("style")
+            oStyle.type="text/css"
+            oHead.appendChild(oStyle)
+            var oCss = oStyle.sheet
+        
+            if (AppStyle == 1 ) {
+                document.bgColor = "#eeeeef"
+
+                oCss.addRule("input", "background:#fefefa;")
+                oCss.addRule(".themeColorText", "color:black;")
+                oCss.addRule(".List1", "background:#fefefa;color:black;")
+                oCss.addRule(".checkbox", "background:#fefefa;color:black;")
+                oCss.addRule("button", "background:#eeeeff;color:black;")
+                oCss.addRule("#TitleBar", "background:#eeeeef;color:black;")
+
+            }else{
+                document.bgColor = "#333336"
+                
+                oCss.addRule("input", "background:#666666;")
+                oCss.addRule(".themeColorText", "color:white;")
+                oCss.addRule(".List1", "background:#232326;color:white")
+                oCss.addRule(".checkbox", "background:#232326;color:white")
+                oCss.addRule("button", "background:#061d32;color:white")
+                oCss.addRule("#TitleBar", "background:#333336;color:black;")
+                
+            }
+        }
+    }
+
+
+    function SelectFolder(RootFolder,title,options,countNum){
+        if (!RootFolder) {
+            RootFolder = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"
+        }
+
+        if (!title) {
+            title = "选择备份到哪里，选择根目录是刷新"
+        }
+
+        if (RootFolder == "--lock") {
+            RootFolder = FSO.GetParentFolderName(PathOfCurrenScript) + "\\开始菜单备份" //P//
+        }
+
+        var FolderPath = new ActiveXObject("Shell.Application").BrowseForFolder(0, title, options, RootFolder)
+
+        if (!FolderPath) {
+
+        }else if (FolderPath.Self.Path == RootFolder) {
+
+            SelectFolder(RootFolder,title,options,countNum)
+        }else{
+            if (countNum == 0) {
+                document.getElementsByTagName("input")(countNum).value = FolderPath.Self.Path + "\\开始菜单备份"
+                folderid_onfocus()
+            }else if(countNum == 5) {
+                document.getElementsByTagName("input")(countNum).value = FolderPath.Self.Path
+                folderid2onfocus()
+            }
+        }
+    }
+    
+    function folderid_onfocus(){
+        var inputfol = document.getElementById("folderid")
+        var range = inputfol.createTextRange()
+        range.moveStart("character", (inputfol.value).length)
+        range.select()
+    }
+    function folderid2onfocus(){
+        var inputfol = document.getElementById("folderid2")
+        var range = inputfol.createTextRange()
+        range.moveStart("character", (inputfol.value).length)
+        range.select()
+    }
+        
+    function folderid_onblur(){
+        var inputfol = document.getElementById("folderid")
+        PathEdit = inputfol.value
+        
+        ParentPath = FSO.GetParentFolderName(PathOfCurrenScript)
+        Pathinstr = PathEdit.lastIndexOf("\\开始菜单备份")
+        if (!PathEdit) {
+            inputfol.value = ".\\开始菜单备份"
+        }else if (ParentPath == PathEdit || Pathinstr !== PathEdit.length-7 || Pathinstr==-1 ) {
+            inputfol.value = PathEdit+"\\开始菜单备份"
+        }
+    }
+
+    function CheckAutoBackup_onblur(x){
+        CheckAutoDelete = document.getElementById("CheckAutoDeleteid")
+        BackupValue=parseInt(x.value)
+        if(!BackupValue){x.value=0}
+        deleteValue=parseInt(CheckAutoDelete.value)
+        if (BackupValue==0){
+            CheckAutoDelete.value = 0
+        }else if(deleteValue!==0 && deleteValue<BackupValue){
+            CheckAutoDelete.value = BackupValue*2
+        }
+    }
+
+    function CheckAutoDelete_onblur(x){
+        BackupDay = document.getElementById("BackupDayid")
+        BackupValue=parseInt(BackupDay.value)
+        deleteValue=parseInt(x.value)
+        if(deleteValue <= BackupValue && deleteValue !==0){
+            alert("自动删除值必须大于自动备份的天数\n\r\n\r已改成建议值"+BackupValue*2)
+            x.value = BackupValue*2
+        }
+    }
+
+
+    function DivFlying(x) {
+        if (x=="hidden"){
+            displayStyle = "none"
+        }else{
+            displayStyle = "block"
+        }
+        var oHead = document.getElementById('hover1')
+        heightRaw = getComputedStyle(oHead,null).getPropertyValue("height")
+        height = heightRaw.replace("px","")
+        intY = window.event.clientY - height/2
+        oHead.style.display = displayStyle
+        oHead.style.top = intY + "px"
+    }
+
+
+    function RunMainScript(ArgumentMode){
+        // 配置环境
+        var isNeedSave,isNeedUpdateSchTask,StopRunMainScript,Format_Argument
+        var FSO= new ActiveXObject("Scripting.FileSystemObject")
+        PathOfCurrenScript = window.location.pathname
+        PathOfCurrenScript = FSO.GetParentFolderName(PathOfCurrenScript)
+        PathOfCurrenScript = PathOfCurrenScript.substring(1,PathOfCurrenScript.length)
+        MainVbsPath = PathOfCurrenScript +"\\备份还原开始菜单.vbs"
+
+        var oFile = FSO.opentextfile(PathOfCurrenScript+"\\config.json",1,true)
+        contents = oFile.readall()
+        var ConfigJson = JSON.parse(contents)
+
+        if (ArgumentMode == "--jsonReStore" || ArgumentMode == "--jsonReStore--Save" || ArgumentMode == "--JsonBackup" || ArgumentMode == "--JsonBackup--Save") {
+            // 获取现在的设置
+            Path = document.getElementsByTagName("input")(0).value
+            BackUpTaskBar = document.getElementsByTagName("input")(1).checked
+            TriggerDay = document.getElementsByTagName("input")(2).value
+            DeleteBeforeDay = document.getElementsByTagName("input")(3).value
+            DeleteToReCycleBin = document.getElementsByTagName("input")(4).checked
+
+            restorePath = document.getElementsByTagName("input")(5).value
+            BeforeRestore = document.getElementsByTagName("input")(6).checked
+            StartMode = document.getElementsByTagName("select")(0).value
+            TaskBarMode = document.getElementsByTagName("select")(1).value
+
+            // 检测备份位置是否正常path
+            if (Path == ".\\开始菜单备份" || !Path ) {
+                Path = ""
+            }else{
+                Path = Path.substring(0,Path.length-7)
+                if (!FSO.FolderExists(Path)) {
+                    Ask = confirm("备份位置的父目录路径不存在，要创建文件夹吗？\n\r\n\r"+Path+"\n\r\n\r【确定】创建文件夹后继续后面操作，【取消】不继续后面操作")
+                    if (Ask){
+                        CreateFolder(Path)
+                    }else{
+                        return
+                    }
+                }
+            }
+            // 检测还原包位置是否正常 restorePath
+            if (ArgumentMode == "--jsonReStore"){
+                if(!restorePath){
+                    alert("还原包为空\n\r\n\r请重新选择")
+                    return
+                }else if (!FSO.FileExists(restorePath+"\\开始菜单备份.reg")) {
+                    alert("所选择的文件夹不包含还原所需文件\n\r\n\r请重新选择\n\r\n\r"+restorePath)
+                    return
+                }
+            }
+            
+            if (ConfigJson.Path !== Path){
+                ConfigJson.Path = Path
+                isNeedSave = true
+            }
+            if (ConfigJson.BackUpTaskBar !== BackUpTaskBar){
+                ConfigJson.BackUpTaskBar = BackUpTaskBar
+                isNeedSave = true //U//
+            }
+            if (ConfigJson.TriggerDay !== parseInt(TriggerDay)){
+                ConfigJson.TriggerDay = parseInt(TriggerDay)
+                isNeedSave = true
+            }
+            if (ConfigJson.DeleteBeforeDay !== parseInt(DeleteBeforeDay)){
+                ConfigJson.DeleteBeforeDay = parseInt(DeleteBeforeDay)
+                isNeedSave = true
+            }
+            if (ConfigJson.DeleteToReCycleBin !== DeleteToReCycleBin){
+                ConfigJson.DeleteToReCycleBin = DeleteToReCycleBin
+                isNeedSave = true
+            }
+
+            if (ArgumentMode == "--jsonReStore" || ArgumentMode == "--jsonReStore--Save"){
+                if (ConfigJson.LastRestorePath !== restorePath){
+                    ConfigJson.LastRestorePath = restorePath
+                    isNeedSave = true
+                }
+            }
+            if (ConfigJson.BeforeRestore !== BeforeRestore){
+                ConfigJson.BeforeRestore = BeforeRestore
+                isNeedSave = true
+            }
+            if (ConfigJson.RestoreStartMode !== parseInt(StartMode)){
+                ConfigJson.RestoreStartMode = parseInt(StartMode)
+                isNeedSave = true
+            }
+            if (ConfigJson.RestoreTaskBarMode !== parseInt(TaskBarMode)){
+                ConfigJson.RestoreTaskBarMode = parseInt(TaskBarMode)
+                isNeedSave = true
+            }
+
+
+
+            TaskSch_Array = get_SchTask()
+
+            if (parseInt(ConfigJson.TriggerDay) == 0){
+                if (TaskSch_Array[0]){
+                    isNeedUpdateSchTask = "Disable"
+                }
+                
+            }else if(parseInt(ConfigJson.TriggerDay) > 0){
+
+                if (!TaskSch_Array[0]){
+                    isNeedUpdateSchTask = "Enable-First"
+
+                }else{
+
+                    if(parseInt(TaskSch_Array[1]) !== parseInt(ConfigJson.TriggerDay)){
+                        isNeedUpdateSchTask = "Enable"
+                    }
+
+
+                    if (ConfigJson.BackUpTaskBar){
+                        TaskSch_Argument2 = "--WithTaskBar"
+                    }else{
+                        TaskSch_Argument2 = ""
+                    }
+                    if (TaskSch_Array[2] !== "\""+MainVbsPath + "\" --HiddenBackup"+TaskSch_Argument2){
+
+                        isNeedUpdateSchTask = "Enable"
+
+                    }
+                }
+            }
+            if (isNeedUpdateSchTask){
+                ConfigJson.isNeedUpdateSchTask = isNeedUpdateSchTask
+            }else{
+                ConfigJson.isNeedUpdateSchTask = null
+                if (ArgumentMode == "--jsonReStore--Save" || ArgumentMode == "--JsonBackup--Save"){
+                    StopRunMainScript = true
+                }
+            }
+            Argument = JSON.stringify(ConfigJson)
+            Format_Argument = Argument.replace(/\"/g,"'")
+            Format_Argument = "\""+Format_Argument+"\""
+
+        }else if (ArgumentMode == "--restartexplorer" ){
+            Ask = Shell.popup("是否重启资源管理器？\n\r\n\r 这将会关闭并重启所有文件夹",0,"警告",1+ 48+256)
+            if (Ask !==1 ) {return}
+        }else if (ArgumentMode == "--ReSetStartLayout" ){
+            Ask = Shell.popup("是否重置开始菜单？\n\r\n\r 这将会删除开始菜单的布局",0,"警告",1+ 48+256)
+            if (Ask !==1 ) {return}
+        }
+
+        if (!StopRunMainScript){
+            Shell.run("\""+MainVbsPath +"\" "+ArgumentMode+" "+Format_Argument)
+        }
+
+
+        if (isNeedSave){
+            delete ConfigJson.isNeedUpdateSchTask
+            JsonData_format = JSON.stringify(ConfigJson,null,1)
+            var oFile = FSO.opentextfile(PathOfCurrenScript+"\\config.json",2,true)
+            oFile.Write(JsonData_format)
+            oFile.Close()
+        }
+        if (ArgumentMode !== "--jsonReStore--Save" && ArgumentMode !== "--JsonBackup--Save") {
+            if(ConfigJson.AutoClose){
+                window.close()
+            }
+        }
+        
+    }
+
+    
+    function management(){
+        Path = document.getElementsByTagName("input")(0).value
+        if (Path == ".\\开始菜单备份" || !Path ) { 
+            Path = FSO.GetParentFolderName(PathOfCurrenScript) +"\\开始菜单备份"
+        }else{
+            if (!FSO.FolderExists(Path)) {
+                alert("路径不存在\n\r\n\r"+Path)
+                return
+            }
+        }
+        Shell.run("\""+Path+"\"")
+    }
+
+    
+    function get_SchTask(){
+        UserName = new ActiveXObject("WScript.Network").UserName
+        var ShellTask = new ActiveXObject("Schedule.Service") //Y//
+        ShellTask.connect()
+        var rootFolder=ShellTask.getfolder("\\")
+        var taskDefinition = ShellTask.NewTask(0)
+        var TaskSch
+        try{
+            var TaskSch = rootFolder.gettask("\\YuphizScript\\"+UserName+"\\开始菜单备份\\自动备份")
+        }catch(err){
+            return [null,null,null]
+        }
+        if (TaskSch) {
+            e = new Enumerator(TaskSch.Definition.Triggers);
+            TaskSch_DaysInterval = e.item().DaysInterval
+
+            e = new Enumerator(TaskSch.Definition.Actions);
+            TaskSch_Path = e.item().path
+            TaskSch_Arguments = e.item().Arguments
+            return [TaskSch.Enabled,TaskSch_DaysInterval,TaskSch_Arguments]
+            
+        }else{
+            return [null,null,null]
+        }
+    }
+
+    function CreateFolder(CreateFolderPath){
+        var FSO = new ActiveXObject("scripting.filesystemobject")
+
+        try{
+            var getDrive = FSO.GetDrive(FSO.GetDriveName(CreateFolderPath))
+        }catch(err){
+            switch(err.number){
+                case -2146828283:
+                    CreateFolderPath = FSO.GetParentFolderName(PathOfCurrenScript)+"\\"+CreateFolderPath
+                    break;
+                case -2146828220:
+                    DriveLetter = CreateFolderPath.substring(0,2)
+                    alert("不能在此盘符操作\n\r\n\r"+DriveLetter)
+                    return false
+                    break;
+                default:
+                    Shell.popup("路径错误")
+                    return false
+                    break;
+            }
+        }
+
+        if (!FSO.FolderExists(FSO.GetParentFolderName(CreateFolderPath))) {
+            CreateFolder(FSO.GetParentFolderName(CreateFolderPath))
+        }
+        FSO.CreateFolder(CreateFolderPath)
+        return true
+    }
+
+    tranx=(screen.width-x)/2
+    trany=(screen.height-y)/2
+    var IsMax = false
+    var IsMaxFromDrag = false
+    LastposScreenX = mx
+    LastposScreenY = my
+    var isMoving=false
+    var fposX,fposY
+
+    
+    function setPos(){
+        if(IsMax && isMoving){
+            isMoving = false;
+            WindowMaximize.Click()
+            window.moveTo(LastposScreenX,LastposScreenY)
+
+            setTimeout(function () {IsMax = !IsMax}, 200);
+        }else{
+            posScreenY=(event.screenY);
+            if (posScreenY == 0){
+                LastTop = window.screenTop
+                var timeoutMax = setTimeout(function () {
+                    CurrentTop = window.screenTop
+                    if (CurrentTop <= LastTop){
+                        setTimeout(function () {isMoving = false}, 200);
+                        WindowMaximize.Click()
+                        setTimeout(function () {IsMax = !IsMax}, 200);
+                        IsMaxFromDrag = true
+                    }else{
+                        clearTimeout(timeoutMax)
+                    }
+                }, 1500);
+                
+            }else{
+              
+                
+                if(isMoving){
+                    if (IsMaxFromDrag){
+                        tranx = LastposScreenX;
+                        trany = LastposScreenY;
+                        IsMaxFromDrag = false
+                    }else{
+                        posX=(event.clientX);
+                        posY=(event.clientY);
+                        tranx = tranx + posX - lastposX;
+                        trany = trany + posY - lastposY;
+                    }
+                    window.moveTo(tranx,trany);
+                }
+            }
+            
+        }
+    }
+    
+
+    function moving(){
+        isMoving=true;
+        lastposX = event.clientX
+        lastposY = event.clientY
+    }
+
+    function stopMoving(){
+        isMoving=false;
+        LastposScreenX = window.screenLeft;
+        LastposScreenY= window.screenTop;
+    }
+
+    function windowstate(){
+        if (IsMaxFromDrag){
+            WindowMaximize.Click()
+            tranx = LastposScreenX;
+            trany = LastposScreenY;
+            window.moveTo(tranx,trany);
+        }else{
+            WindowMaximize.Click()
+        }
+        setTimeout(function () {IsMax = !IsMax}, 200);  
+        IsMaxFromDrag = false
+    }
+</script>
+
+
+
+
+<style type="text/css">
+    body{
+        -ms-overflow-style: none;
+    }
+    #bodyBox {
+        width: 720px;
+        height: 740px;
+    }
+    .inputDay{
+        width: 70px;
+        height: 30px;
+        border-radius: 7px;
+        
+    }
+    .inputBackupPath {
+        width: 450px;
+        height: 30px;
+        border-radius: 7px;
+    }
+    .inputRestorePath {
+        width: 380px;
+        height: 30px;
+        border-radius: 7px;
+    }
+    table tr{
+        table-layout:fixed;
+        word-break:break-all;
+    }
+    table tr:hover {
+        background-color: rgba(128,128,128,0.5);
+        border-radius: 7px;
+        border-collapse:separate;
+        border-spacing: 0;
+        overflow: hidden;
+    }
+    table tr td{
+        font-weight:normal;
+        padding-left: 10px;
+        overflow: hidden;
+        border-radius: 7px;
+        border-collapse:separate;
+        border-spacing: 0;
+        
+    }
+
+
+    #MainBox {
+            padding: 30px 11px 16px 7px;
+            border-radius: 14px;
+        
+    }
+    .LabelFontSize {
+        font-size:22px;
+        font-family:"Microsoft Yahei";
+    }
+    .SubLabel {
+        /* H */
+        position: relative;
+        padding: 3px 0px 3px 22px;
+        
+    }
+    .SubLabel:hover {
+        background-color: rgba(128,128,128,0.5);
+        border-radius: 7px;
+        
+    }
+
+    .checkbox {
+        width:20px;
+        height: 20px;
+        border: #888888 solid 2px;
+        
+    }
+
+    .List1 {
+        width:460px;
+        height: 35px;
+        border-radius: 6px;
+        
+    }
+    .BUTTON2{
+        height: 40px;
+        font-size:24px;
+        
+    }
+    .BUTTON3{
+        height: 36px;
+        font-size:22px;
+        
+    }
+    .ROwLabel{
+        padding-left: 10px;
+        
+    }
+
+    .themeColorText{
+        display:block;
+        font-family:"Microsoft Yahei";
+        }
+    .themeBgcolor{
+        display:block;
+        }
+    button{
+        display: inline-block;
+        outline: none;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+        border-radius: 10px;
+        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        color: #d9eef7;
+        border: solid 1px #0076a3;
+        
+    }
+    button:hover{
+        background: #007ead;
+    }
+    select{
+        width: 130px;
+    }
+    #hover1{
+        width:680px;
+        height:30px;
+        left:60px;
+        border-bottom:#0076a3 solid 4px;
+        background:linear-gradient(rgba(255,255,255,0),rgb(36, 186, 255));
+        z-index:-1;
+        opacity: 0.1;
+        display: none;
+    }
+    #TitleBar {
+        position: fixed;
+        width: 720px;
+        height: 50px;
+        z-index: 1;
+    }
+    .logo {
+        width: 28px;
+        left:30px
+    }
+    .TitleText {
+        text-align:center;
+        font-size:28px;
+        display: inline;
+    }
+    #SystemMenu{
+        width: 140px;
+        height: 50px;
+    }
+    .SystemMenu{
+        vertical-align: middle;
+        font-family:none;
+    }
+    .SystemMenuText1:hover{
+        background-color: rgba(255, 222, 9, 0.5);
+        border-radius: 7px;
+    }
+    .SystemMenuText2:hover{
+        background-color: rgba(47, 255, 61, 0.5);
+        border-radius: 7px;
+    }
+    .SystemMenuText3:hover{
+        background-color: rgba(255, 30, 30, 0.5);
+        border-radius: 7px;
+    }
+    .SystemMenuText{
+        width: 40px;
+        height: 50px;
+    }
+
+
+</style>
+</head>
+
+
+<body scroll="yes" bgcolor=#ffffff onmousemove="setTheme();">
+    <div id="TitleBar">
+        <div id="SystemMenu" style="float: right;display: inline;" >
+        <span class="SystemMenuText SystemMenuText1 ROwLabel">
+            <div class="SystemMenu themeColorText" style='display: inline;' onclick="javascript:WindowMinimize.Click()">
+                −
+            </div>
+            <object id="WindowMinimize" type="application/x-oleobject" style="display: none;" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
+                <param name="Command" value="Minimize">
+            </object>
+        </span>
+        <span class="SystemMenuText SystemMenuText2 ROwLabel">
+            <div class=" SystemMenu themeColorText" " style='display: inline; font-size: 28px;' onclick="windowstate()">
+                <span>▢&nbsp</span>
+            </div>
+            <object id="WindowMaximize" type="application/x-oleobject" style="display: none;" classid="clsid:adb880a6-d8ff-11cf-9377-00aa003b7a11">
+                <param name="Command" value="Maximize">
+            </object>
+        </span>
+        <span class="SystemMenuText SystemMenuText3 ROwLabel">
+            <div class=" SystemMenu themeColorText" style='display: inline;font-size: 42px' onclick="window.close()">
+                ×&nbsp
+            </div>
+        </span>
+        </div>
+    <div ondblclick="windowstate()" onmousemove="setPos()" onmousedown="moving()" onmouseup="stopMoving()">
+        <img class="logo" src="RBST.ico1" alt="logo" >
+        <span class="TitleText themeColorText">备份还原开始菜单</span>
+    </div> <!-- I -->
+    
+</div> 
+    
+    
+
+    <div id="bodyBox" > 
+
+    <div id="MainBox" >
+    
+        <!--备份选项-->
+        <div id="MainBox" title="修改备份设置之后记得保存设置">
+            <div class="LabelFontSize"><span class="themeColorText">备份选项</span> <span style="color:#888888"></span></div>
+
+            <div class="SubLabel">
+                <div class=" LabelFontSize">
+                    <span class="">
+                    <button style="float: right;" class="BUTTON2 themeColorText" onclick="SelectFolder(null,null,53,0)" >选择</button>
+                    </span>
+                    
+                    <span class="themeColorText">
+                        备份位置
+                        <span class="ROwLabel">
+                            <input id="folderid" class="inputBackupPath themeColorText LabelFontSize" name=Folder type="text" style="display:inline;" value=".\开始菜单备份" onblur="folderid_onblur()">
+                        </span>
+                    </span>
+                    
+                </div>
+            </div>
+
+            <table style="table-layout:fixed;word-break:break-all; width:680px;">
+                <tr>
+                    <td class="LabelFontSize SubLabel" align="left">
+                        <span class="themeColorText">备份任务栏和工具栏</span>
+                    </td>
+                    <td align="left">
+                        <input class="LabelFontSize checkbox" name=CheckBackupWithTaskBar type="checkbox" unchecked="><!-- checked="-->
+                    </td>
+                </tr>
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left">
+                        <span class="themeColorText">每过几天自动备份</span>
+                    </td>
+                    <td title="0为不自动备份，且自动清理也会关闭" align="left" >
+                        <input id="BackupDayid" class="themeColorText inputDay LabelFontSize" name=Folder type=text value="0" onblur="CheckAutoBackup_onblur(this)" oninput = "value=value.replace(/[^\d]/g,'')" required="required">
+                    </td>
+                </tr>
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left" style="width: 340px;" >
+                        <span class="themeColorText" >自动清理早于几天前的自动备份</span>
+                    </td>
+                    <td title="0为不自动清理，只有当自动备份开启时生效，建议设置为自动备份天数的2倍" align="left" style="width: 280px;">
+                            <input id="CheckAutoDeleteid" class="themeColorText inputDay LabelFontSize" name=Folder type=text value="0" onblur="CheckAutoDelete_onblur(this)" oninput = "value=value.replace(/[^\d]/g,'')" required="required">
+                    </td>
+                </tr>
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left">
+                        <span class="themeColorText">删除到回收站</span>
+                    </td>
+                    <td align="left">
+                        <input class="LabelFontSize checkbox" name=CheckRyclebin type="checkbox" unchecked="" checked="checked"> <!-- Z -->
+                    </td>
+                </tr>
+            </table>
+
+            
+            <div class="SubLabel">
+                <BUTTON name="RunBackup" class="BUTTON2 themeColorText" style="float:right;" onclick="RunMainScript('--JsonBackup')" >开始生成备份</BUTTON>
+                <BUTTON class="BUTTON2 themeColorText"style="float:left;" onclick="RunMainScript('--JsonBackup--Save')">保存设置</BUTTON>
+                <span class="">
+                <BUTTON class="BUTTON2 themeColorText" onclick="management()" title="打开开始菜单备份文件夹">管理备份</BUTTON>
+                </span>
+            </div>
+        </div>
+
+
+        <!--还原选项-->
+        <div id="MainBox" title="修改还原设置之后记得保存设置">
+            <div class="LabelFontSize themeColorText">还原选项 <span style="color:#888888"></span></div>
+
+            <div class="SubLabel">
+                <div class=" LabelFontSize">
+                    <BUTTON class="BUTTON2 ROwLabel themeColorText" style="float: right;" onclick="SelectFolder(null,null,565,5)">其他包</BUTTON>
+                    <BUTTON  class="BUTTON2 ROwLabel themeColorText" style="float: right;" onclick="SelectFolder('--lock',null,517,5)">选择</BUTTON>
+                    <span class="themeColorText">
+                        还原包
+                        <span class="ROwLabel">
+                            <input id="folderid2" class="inputRestorePath themeColorText LabelFontSize" name=Folder type=text value=""  style="display:inline;" readonly="readonly">
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+
+            <table style="table-layout:fixed;word-break:break-all; width:680px;">
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left" style="width:180px" title="请选择是否勾选">
+                        <span class="themeColorText">还原前备份</span>
+                    </td>
+                    <td align="left">
+                        <input class="LabelFontSize checkbox" name=CheckBackupWithTaskBar type="checkbox" checked="Checked" >
+                    </td>
+                </tr>
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left">
+                        <span class="themeColorText">开始菜单还原模式</span>
+                    </td>
+                    <td title=0为不自动备份 align="left">
+                        <select class="LabelFontSize List1" >
+                            <option value="0" class="themeColorText">不还原开始菜单</option>
+                            <option value="1" selected class="themeColorText">还原开始菜单，不覆盖快捷方式(默认)</option>
+                            <option value="2" class="themeColorText">还原开始菜单，且还原个人用户快捷方式</option>
+                            <option value="3" class="themeColorText">还原开始菜单、且还原所有用户快捷方式</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class=" LabelFontSize SubLabel" align="left">
+                        <span class="themeColorText">任务栏还原模式</span>
+                    </td>
+                    <td title=0为不自动清理 align="left">
+                        <select class="LabelFontSize List1" >
+                            <option value="0" selected class="themeColorText">不还原任务栏(默认)</option>
+                            <option value="1" class="themeColorText">还原任务栏，不覆盖快捷方式</option>
+                            <option value="2" class="themeColorText">还原任务栏、且覆盖快捷方式</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="SubLabel">
+                <BUTTON class="BUTTON2 themeColorText" style="float:right;"  onclick="RunMainScript('--jsonReStore')">开始还原备份</BUTTON>
+                <BUTTON class="BUTTON2 themeColorText" onclick="RunMainScript('--jsonReStore--Save')">保存设置</BUTTON>
+            </div>
+        </div>
+
+
+        <!--其他选项-->
+        <div id="MainBox">
+            <div class="LabelFontSize themeColorText">其他选项 <span style="color:#888888"></span></div>
+            <div class="SubLabel">
+                <BUTTON class="BUTTON3 themeColorText" style="float:right;" onclick="RunMainScript('--ReSetStartLayout')">重置开始菜单</BUTTON>
+                <BUTTON class="BUTTON3 themeColorText" style="float: left;" onclick="RunMainScript('--removeSchTask')" title="删除自动备份的计划任务">卸载自动备份</BUTTON>
+                <span class="">
+                <BUTTON class="BUTTON3 themeColorText" onclick="RunMainScript('--restartexplorer')">重启资源管理器</BUTTON>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
