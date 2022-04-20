@@ -6,6 +6,20 @@
 
 ​<img src="https://github.com/Yuphiz/Public/blob/main/BackRestoreStartmenu/collage.png" width = "400" height = "450" alt="GUI demo" align=center />
 
+### 更新 0.6
+1.[增加]更新重启资源管理器脚本至v0.5  
+2.[修改]当自动备份改为0时，直接删除任务计划，而不是禁用（不过保留了删除任务计划的入口）  
+3.[增加]在某些ome等自定义系统下还有可能出现startlayout.json，顺便备份  
+4.[修改]缩小窗口  
+5.[增加]增加一些悬浮提示  
+6.[修改]优化一个关闭异步提示循环进程，查找到后就马上关闭for  
+7.[修复]修复var outFile = Nothing  
+8.[修复]修复当快速拖动窗口会不能移动窗口的bug  
+9.[修复] 从拖动放大拉回后再点放大窗口按钮有个放大窗口位置不对的bug  
+10.[修复]修复提示任务计划不存在的多余提示bug  
+11.[修复]修复，当拖动窗口时，不会实时缩放的bug  
+12.一些代码优化和文字提示改进  
+
 ### 更新 Beta 0.5  
     gui用hta写，如果你是精简系统，请自行确认有没有系统有没有wscript、mshta、powershell  
 	支持win11正式版和dev版分组开始菜单（全网独家）      
