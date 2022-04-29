@@ -82,7 +82,7 @@ End Function
 
 '声明
 '脚本：备份还原开始菜单
-'版本：beta 0.6
+'版本：beta 0.6.1
 '说明：本脚本可以备份和还原开始菜单布局
 
 
@@ -151,7 +151,7 @@ select case WScript.Arguments.count
             Wscript.quit
         elseif WScript.Arguments(0) = "--HTAGUI" then
             set Shell = CreateObject("WScript.Shell")
-            if Shell.Appactivate("备份还原开始菜单GUI v0.6 By --@YUPHIZ") then
+            if Shell.Appactivate("备份还原开始菜单GUI v0.6.1 By --@YUPHIZ") then
                 Wscript.quit
             End If
             CreateObject("Wscript.Shell").run "mshta """&PathOfCurrenScript&"\gui.hta"""
