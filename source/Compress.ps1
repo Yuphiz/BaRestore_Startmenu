@@ -8,7 +8,7 @@ Export-startlayout -path "$BackvpFolder\startmenulayout.xml"
 <#
 '声明
 '脚本：备份还原开始菜单
-'版本：beta 0.6
+'版本：beta 0.6.1
 '说明：本脚本可以备份和还原开始菜单布局
 
 
