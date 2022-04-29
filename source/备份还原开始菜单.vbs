@@ -26,7 +26,7 @@ if not FSO.FileExists(PathOfCurrenScript &"\RBST.ico1") and FSO.FileExists(PathO
     wscript.quit
 end if
 
-
+WindowStyle_Debug = 0
 if not Fso.FileExists(PathOfCurrenScript&"\config.json") then
 '═════════════════════ 设置 模块开始 ═════════════════════
 Path=""
@@ -374,7 +374,7 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
 
     RegFile=Folder&"\开始菜单备份.reg"
 
-    Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount """&RegFile&"""" ,0,true
+    Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount """&RegFile&"""" ,WindowStyle_Debug,true
     if not FSO.FileExists(RegFile) then
         Shell.popup "不能备份开始菜单注册表，可能脚本不支持此系统版本",0,"错误",16
     end if
@@ -398,7 +398,7 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
 
     if IsNull(WithTaskBar) then
         OtherRegFile = Folder&"\其他开始菜单设置.reg"
-        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,0,true
+        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,WindowStyle_Debug,true
         
         OtherStartRegFile = Folder&"\其他开始菜单设置.reg"
         contents = ReadFile(OtherRegFile)
@@ -415,14 +415,14 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
             WindowStyle = 0
         end if
         
-        Shell.run "powershell -noprofile -executionpolicy Bypass -file "&PathOfCurrenScript &"\Compress.ps1 "&Folder ,0,true
+        Shell.run "powershell -noprofile -executionpolicy Bypass -file """&PathOfCurrenScript &"\Compress.ps1"" """&Folder&"""" ,WindowStyle_Debug,true
         
 
 
 
     elseif WithTaskBar="--WithTaskBar" then
         OtherRegFile = Folder&"\其他任务栏设置.reg"
-        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,0,true
+        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,WindowStyle_Debug,true
 
         OtherStartRegFile = Folder&"\其他开始菜单设置.reg"
         contents = ReadFile(OtherRegFile)
@@ -443,13 +443,13 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
         end if
 
         RegTaskBarFile=Folder&"\任务栏备份.reg"
-        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband """&RegTaskBarFile&"""" ,0,true
+        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband """&RegTaskBarFile&"""" ,WindowStyle_Debug,true
         if not FSO.FileExists(RegTaskBarFile) then
             Shell.popup "不能备份任务栏注册表，可能脚本不支持此系统版本",0,"错误",16
         end if
 
         RegToolBarFile=Folder&"\工具栏备份.reg"
-        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Streams\Desktop """&RegToolBarFile&"""" ,0,true
+        Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Streams\Desktop """&RegToolBarFile&"""" ,WindowStyle_Debug,true
         if not FSO.FileExists(RegToolBarFile) then 
             Shell.popup "不能备份工具栏栏注册表，可能脚本不支持此系统版本",0,"错误",16
         end if
@@ -459,7 +459,7 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
         else 
             WindowStyle = 0
         end if
-        Shell.run "powershell -noprofile -executionpolicy Bypass -file "&PathOfCurrenScript &"\Compress.ps1 "&Folder &" -WithTaskBar",0,true
+        Shell.run "powershell -noprofile -executionpolicy Bypass -file """&PathOfCurrenScript &"\Compress.ps1"" """&Folder &""" -WithTaskBar",WindowStyle_Debug,true
     end If
     
 ' ———— 关闭异步处理的mshta提示
@@ -568,11 +568,11 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
         end if
         
         RegFile=RestoreFolder&"\开始菜单备份.reg"
-        Shell.run "REG IMPORT """&RegFile&"""" ,0,true
+        Shell.run "REG IMPORT """&RegFile&"""" ,WindowStyle_Debug,true
 
         StartRegFile = RestoreFolder& "\其他开始菜单设置.reg"
         if FSO.FileExists(StartRegFile) then
-            Shell.run "REG IMPORT """&StartRegFile&"""" ,0,true
+            Shell.run "REG IMPORT """&StartRegFile&"""" ,WindowStyle_Debug,true
         end if
 
         call KillStartMenuProcess()
@@ -592,20 +592,20 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
     if (not isnull(RestoreTaskBarMode)) and RestoreTaskBarMode<> "0" then
         RegTaskBarFile = RestoreFolder&"\任务栏备份.reg"
         if FSO.FileExists(RegTaskBarFile) then
-            Shell.run "REG IMPORT """&RegTaskBarFile&"""" ,0,true
+            Shell.run "REG IMPORT """&RegTaskBarFile&"""" ,WindowStyle_Debug,true
             IsNeedRestartExplorer = true
         end if
 
         RegToolBarFile = RestoreFolder&"\工具栏备份.reg"
         if FSO.FileExists(RegToolBarFile) then
-            Shell.run "REG IMPORT """&RegToolBarFile&"""" ,0,true
+            Shell.run "REG IMPORT """&RegToolBarFile&"""" ,WindowStyle_Debug,true
             IsNeedRestartExplorer = true
         end if
 
         TaskRegFile = RestoreFolder& "\其他任务栏设置.reg"
         if FSO.FileExists(TaskRegFile) then
             TaskBarReg = ReadFile(TaskRegFile)
-            Shell.run "REG IMPORT """&TaskRegFile&"""" ,0,true
+            Shell.run "REG IMPORT """&TaskRegFile&"""" ,WindowStyle_Debug,true
             IsNeedRestartExplorer = true
         end if
 
@@ -680,7 +680,7 @@ Function ResetStartLayout()
         FSO.deleteFile FileLayout
     end if
 
-    Shell.run "reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount /f",0,true
+    Shell.run "reg delete HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount /f",WindowStyle_Debug,true
 
     if FSO.FileExists(StartBin) then
         FSO.deleteFile StartBin
@@ -897,9 +897,9 @@ Set Shell=CreateObject("WScript.Shell")
 set WinRC=getobject("winmgmts:\\.\root\cimv2")
 set GetProcess=WinRC.execquery("select * from win32_process where name='StartMenuExperienceHost.exe'")
      if GetProcess.count>=1 then 
-         Shell.run "taskkill /im StartMenuExperienceHost.exe /f",0
+         Shell.run "taskkill /im StartMenuExperienceHost.exe /f",WindowStyle_Debug
      else
-         Shell.run "taskkill /im ShellExperienceHost.exe /f",0
+         Shell.run "taskkill /im ShellExperienceHost.exe /f",WindowStyle_Debug
      end if
 end sub
 
@@ -1090,12 +1090,12 @@ sub RestartExplorer()    '重启资源管理器并重新打开上次的目录
         end if
     Next
 
-    Shell.Run "Tskill explorer",0,True
+    Shell.Run "Tskill explorer",WindowStyle_Debug,True
     if err.number = -2147024894 then 
         err.number = 0
-        Shell.Run "taskkill /im explorer.exe /f",0,True
+        Shell.Run "taskkill /im explorer.exe /f",WindowStyle_Debug,True
         ' Shell.Run "explorer",0,True
-        Shell.Run "cmd /c start explorer",0,True
+        Shell.Run "cmd /c start explorer",WindowStyle_Debug,True
         if err.number = -2147024894 then
             msgbox "重启资源管理器失败，请手动重启"
             exit sub
