@@ -6,6 +6,14 @@
 
 ​<img src="https://github.com/Yuphiz/Public/blob/main/BackRestoreStartmenu/collage.png" width = "400" height = "450" alt="GUI demo" align=center />
 
+### 重要更新 0.6.1
+0.5-beta和0.6.0两个版本存在[当路径有空格就无法备份快捷方式的bug]
+见此问题 [issue](https://github.com/Yuphiz/BaRestore_Startmenu/issues/4#issue-1218504890) 感谢[Vectorsmiracle](https://github.com/Vectorsmiracle) 提交此问题
+特征是备份文件缺少zip压缩包
+
+这个版本现已修复
+十分抱歉对于前两个版本造成的开始菜单快捷方式没有备份
+
 ### 更新 0.6
 1.[增加]更新重启资源管理器脚本至v0.5  
 2.[修改]当自动备份改为0时，直接删除任务计划，而不是禁用（不过保留了删除任务计划的入口）  
