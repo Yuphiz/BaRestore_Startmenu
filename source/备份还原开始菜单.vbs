@@ -1,12 +1,12 @@
-' åˆ¤æ–­ç³»ç»Ÿç‰ˆæœ¬å·
+' ÅĞ¶ÏÏµÍ³°æ±¾ºÅ
 SysVersion=GetSystemVersion()
 if SysVersion(0)<10 then
-    msgbox "æœ¬è„šæœ¬åªæ”¯æŒwindows10ä»¥ä¸Šç³»ç»Ÿ",16
+    msgbox "±¾½Å±¾Ö»Ö§³Öwindows10ÒÔÉÏÏµÍ³",16
     wscript.quit
 end if
 
 if SysVersion(2)<15063 then
-    msgbox "ä½ çš„ç³»ç»Ÿç‰ˆæœ¬è¿‡ä½ï¼Œè„šæœ¬æš‚ä¸æ”¯æŒ1703(15063)ä»¥å‰çš„ç³»ç»Ÿ",16
+    msgbox "ÄãµÄÏµÍ³°æ±¾¹ıµÍ£¬½Å±¾Ôİ²»Ö§³Ö1703(15063)ÒÔÇ°µÄÏµÍ³",16
     wscript.quit
 end if
 
@@ -14,21 +14,21 @@ end if
 set FSO=createobject("Scripting.FileSystemObject")
 PathOfCurrenScript = FSO.GetFile(Wscript.ScriptFullName).ParentFolder.Path
 if not FSO.FileExists(PathOfCurrenScript &"\GUI.html") and FSO.FileExists(PathOfCurrenScript &"\GUI.hta") then
-    msgbox "ç¼ºå°‘ .\source\GUI.html"
+    msgbox "È±ÉÙ .\source\GUI.html"
     wscript.quit
 end if
 if not FSO.FileExists(PathOfCurrenScript &"\Compress.ps1") then
-    msgbox "ç¼ºå°‘ .\source\Compress.ps1"
+    msgbox "È±ÉÙ .\source\Compress.ps1"
     wscript.quit
 end if
 if not FSO.FileExists(PathOfCurrenScript &"\RBST.ico1") and FSO.FileExists(PathOfCurrenScript &"\GUI.hta") then
-    msgbox "ç¼ºå°‘ .\source\RBST.ico1"
+    msgbox "È±ÉÙ .\source\RBST.ico1"
     wscript.quit
 end if
 
 WindowStyle_Debug = 0
 if not Fso.FileExists(PathOfCurrenScript&"\config.json") then
-'â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• è®¾ç½® æ¨¡å—å¼€å§‹ â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+'¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T ÉèÖÃ Ä£¿é¿ªÊ¼ ¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T¨T
 Path=""
 TriggerDay=0
 DeleteBeforeDay=TriggerDay*2
@@ -72,7 +72,7 @@ end if
 
 
 
-Function ParseJson(strJson) 'è§£æJson
+Function ParseJson(strJson) '½âÎöJson
     Set html = CreateObject("htmlfile")
     Set window = html.parentWindow
     window.execScript "var json = " & strJson, "JScript"
@@ -80,16 +80,16 @@ Function ParseJson(strJson) 'è§£æJson
 End Function
 
 
-'å£°æ˜
-'è„šæœ¬ï¼šå¤‡ä»½è¿˜åŸå¼€å§‹èœå•
-'ç‰ˆæœ¬ï¼šbeta 0.6.1
-'è¯´æ˜ï¼šæœ¬è„šæœ¬å¯ä»¥å¤‡ä»½å’Œè¿˜åŸå¼€å§‹èœå•å¸ƒå±€
+'ÉùÃ÷
+'½Å±¾£º±¸·İ»¹Ô­¿ªÊ¼²Ëµ¥
+'°æ±¾£ºbeta 0.6.2
+'ËµÃ÷£º±¾½Å±¾¿ÉÒÔ±¸·İºÍ»¹Ô­¿ªÊ¼²Ëµ¥²¼¾Ö
 
 
-'ä½œè€…ï¼šYUPHIZ
-'ç‰ˆæƒï¼šæ­¤è„šæœ¬ç‰ˆæƒå½’YUPHIZæ‰€æœ‰ï¼Œå¤‡ä»½è¿˜åŸæ–¹æ³•å€Ÿé‰´BackupSMLå’Œwinaero tweakerï¼Œå¹¶ä¼˜åŒ–æ”¹è¿›
-        'å‡¡ç”¨æ­¤è„šæœ¬ä»äº‹æ³•å¾‹ä¸å…è®¸çš„äº‹æƒ…çš„ï¼Œå‡ä¸æœ¬ä½œè€…æ— å…³
-        'æ­¤è„šæœ¬éµå¾ª gpl3.0 and later åè®®
+'×÷Õß£ºYUPHIZ
+'°æÈ¨£º´Ë½Å±¾°æÈ¨¹éYUPHIZËùÓĞ£¬±¸·İ»¹Ô­·½·¨½è¼øBackupSMLºÍwinaero tweaker£¬²¢ÓÅ»¯¸Ä½ø
+        '·²ÓÃ´Ë½Å±¾´ÓÊÂ·¨ÂÉ²»ÔÊĞíµÄÊÂÇéµÄ£¬¾ùÓë±¾×÷ÕßÎŞ¹Ø
+        '´Ë½Å±¾×ñÑ­ gpl3.0 and later Ğ­Òé
 
 
 
@@ -106,18 +106,18 @@ end if
 
 
 
-' å»ºç«‹ç¯å¢ƒæ–‡ä»¶å¤¹
-title="å¼€å§‹èœå•å¤‡ä»½"
+' ½¨Á¢»·¾³ÎÄ¼ş¼Ğ
+title="¿ªÊ¼²Ëµ¥±¸·İ"
 set FSO=CreateObject("scripting.filesystemobject")
 if not FSO.FolderExists(Path) then
     Ask=CreateObject("Wscript.Shell").Popup( _
-        "æœªæ‰¾åˆ°å¤‡ä»½è·¯å¾„"& vbcrlf & path & vbcrlf &_
-        "æ˜¯å¦åˆ›å»ºï¼Ÿ",0,"è¯·é€‰æ‹©",1+16+512 _
+        "Î´ÕÒµ½±¸·İÂ·¾¶"& vbcrlf & path & vbcrlf &_
+        "ÊÇ·ñ´´½¨£¿",0,"ÇëÑ¡Ôñ",1+16+512 _
     )
     if Ask=1 then
         call CreateFolder(Path)
         if not FSO.FolderExists(Path) then
-             msgbox "å»ºç«‹æ–‡ä»¶å¤¹å¤±è´¥ï¼Œè¯·æ‰‹åŠ¨æ“ä½œ",1+16
+             msgbox "½¨Á¢ÎÄ¼ş¼ĞÊ§°Ü£¬ÇëÊÖ¶¯²Ù×÷",1+16
              Wscript.quit
         end if
     else
@@ -126,38 +126,38 @@ if not FSO.FolderExists(Path) then
 end if
 
 select case WScript.Arguments.count
-    case 5 ' ã€è¿˜åŸ2.2ã€‘éœ€è¦çš„ç®¡ç†å‘˜
+    case 5 ' ¡¾»¹Ô­2.2¡¿ĞèÒªµÄ¹ÜÀíÔ±
         if WScript.Arguments(1)="--Restore" then
             RestoreTaskBarMode = WScript.Arguments(2)
             RestoreFolder = WScript.Arguments(4)
             if RestoreTaskBarMode = "" then RestoreTaskBarMode=null
             username = WScript.Arguments(3)
             if RestoreFolder = "" then RestoreFolder = null
-            call RestoreStartLayout(Path,"--WithStartLayout--AllUser",RestoreTaskBarMode,UserName,RestoreFolder) 'ç®¡ç†å‘˜è¿è¡Œ
+            call RestoreStartLayout(Path,"--WithStartLayout--AllUser",RestoreTaskBarMode,UserName,RestoreFolder) '¹ÜÀíÔ±ÔËĞĞ
             Wscript.quit
         end if 
-    case 1 ' ä»»åŠ¡è®¡åˆ’å’ŒHtaGuiå¤‡ä»½ç›¸å…³
+    case 1 ' ÈÎÎñ¼Æ»®ºÍHtaGui±¸·İÏà¹Ø
         if WScript.Arguments(0) = "--HiddenBackup" then
             call BackUpStartLayout(Path,"--Auto",null,"notips")
             if DeleteBeforeDay > 0 then
-                call DeleteFilesTree(Path&"\å¼€å§‹èœå•å¤‡ä»½")
+                call DeleteFilesTree(Path&"\¿ªÊ¼²Ëµ¥±¸·İ")
             end if
             Wscript.quit
         elseif WScript.Arguments(0) = "--HiddenBackup--WithTaskBar" then
             call BackUpStartLayout(Path,"--Auto","--WithTaskBar","notips")
             if DeleteBeforeDay > 0 then
-                call DeleteFilesTree(Path&"\å¼€å§‹èœå•å¤‡ä»½")
+                call DeleteFilesTree(Path&"\¿ªÊ¼²Ëµ¥±¸·İ")
             end if
             Wscript.quit
         elseif WScript.Arguments(0) = "--HTAGUI" then
             set Shell = CreateObject("WScript.Shell")
-            if Shell.Appactivate("å¤‡ä»½è¿˜åŸå¼€å§‹èœå•GUI v0.6.1 By --@YUPHIZ") then
+            if Shell.Appactivate("±¸·İ»¹Ô­¿ªÊ¼²Ëµ¥GUI v0.6.2 By --@YUPHIZ") then
                 Wscript.quit
             End If
             CreateObject("Wscript.Shell").run "mshta """&PathOfCurrenScript&"\gui.hta"""
             Wscript.quit
         end if
-    case 2 ' HtaGuiè¿˜åŸç›¸å…³
+    case 2 ' HtaGui»¹Ô­Ïà¹Ø
         ArgumentMode = WScript.Arguments(0)
         JsonContent = WScript.Arguments(1)
         if ArgumentMode = "--JsonBackup" or ArgumentMode = "--jsonReStore" or ArgumentMode = "--restartexplorer" or ArgumentMode = "--removeSchTask" or ArgumentMode = "--ReSetStartLayout" or ArgumentMode = "--JsonBackup--Save" or  ArgumentMode = "--jsonReStore--Save" then
@@ -231,82 +231,82 @@ function GuiLauncher(Mode,JsonContent)
 end function
 
 
-' ä¸»ç•Œé¢å‡½æ•°
+' Ö÷½çÃæº¯Êı
 function SatrtLayout()
     Ask=inputbox( _
-        "â€» æ­¤ä¸ºæ—§ç‰ˆuiï¼Œè¯·ä½¿ç”¨ã€åŒå‡»è¿è¡Œã€‘å¯åŠ¨æ–°GUI"&vbcrlf&vbcrlf& _
-        "   â†‘â†‘â†‘â†‘â†‘â†‘â†‘ æ—§ç‰ˆuiå¯èƒ½æœ‰åŠŸèƒ½ç¼ºå¤±"&vbcrlf&vbcrlf&vbcrlf&vbcrlf& _
-        "â€» ã€å¤‡ä»½é€‰é¡¹ã€‘"&vbcrlf&vbcrlf& _
-        "    1    å¤‡ ä»½ å¼€å§‹èœå•"&vbcrlf&vbcrlf& _
-        "    1.1  å¤‡ ä»½ å¼€å§‹èœå•å’Œä»»åŠ¡æ  "&vbcrlf&vbcrlf&vbcrlf& _
-        "â€» ã€è¿˜åŸé€‰é¡¹ã€‘"&vbcrlf&vbcrlf& _
-        "    2     è¿˜ åŸ å¼€å§‹èœå•ã€ä¸”ä¸è¦†ç›–å¿«æ·æ–¹å¼"&vbcrlf&vbcrlf& _
-        "    2.1   è¿˜ åŸ å¼€å§‹èœå•+ è¿˜åŸä¸ªäººç”¨æˆ·å¿«æ·æ–¹å¼"&vbcrlf&vbcrlf& _
-        "    2.2   è¿˜ åŸ å¼€å§‹èœå•+ è¿˜åŸæ‰€æœ‰ç”¨æˆ·å¿«æ·æ–¹å¼"&vbcrlf&vbcrlf&vbcrlf& _
-        "    2.3   è¿˜ åŸ ä»»åŠ¡æ ï¼Œä¸”ä¸è¦†ç›–å¿«æ·æ–¹å¼"&vbcrlf&vbcrlf& _
-        "    2.4   è¿˜ åŸ ä»»åŠ¡æ ã€ä¸”è¦†ç›–å¿«æ·æ–¹å¼"&vbcrlf&vbcrlf&vbcrlf& _
-        "    2.5   é€‰é¡¹ 2   + é€‰é¡¹ 2.3"&vbcrlf&vbcrlf& _
-        "    2.6   é€‰é¡¹ 2.1 + é€‰é¡¹ 2.3"&vbcrlf&vbcrlf& _
-        "    2.7   é€‰é¡¹ 2.2 + é€‰é¡¹ 2.3"&vbcrlf&vbcrlf& _
-        "    2.8   é€‰é¡¹ 2   + é€‰é¡¹ 2.4"&vbcrlf&vbcrlf& _
-        "    2.9   é€‰é¡¹ 2.1 + é€‰é¡¹ 2.4"&vbcrlf&vbcrlf& _
-        "    2.10  é€‰é¡¹ 2.2 + é€‰é¡¹ 2.4"&vbcrlf&vbcrlf&vbcrlf& _
-        "    0.0   é‡ç½®å¼€å§‹èœå•"&vbcrlf&vbcrlf&vbcrlf&vbcrlf& _
-        "â€» ã€å®šæ—¶å¤‡ä»½é€‰é¡¹ã€‘"&vbcrlf&vbcrlf&_
-        "    3   å¼€ å¯ï¼ˆåˆ·æ–°ï¼‰å®šæ—¶è‡ªåŠ¨å¤‡ä»½ ä¸å¤‡ä»½ä»»åŠ¡æ "&vbcrlf&vbcrlf&_
-        "    3.1 å¼€ å¯ï¼ˆåˆ·æ–°ï¼‰å®šæ—¶è‡ªåŠ¨å¤‡ä»½ å¤‡ä»½ä»»åŠ¡æ "&vbcrlf&vbcrlf&_
-        "    4   ç¦ ç”¨ å®šæ—¶è‡ªåŠ¨å¤‡ä»½"&vbcrlf&vbcrlf&_
-        "    5   å¸ è½½ å®šæ—¶è‡ªåŠ¨å¤‡ä»½ "&vbcrlf&vbcrlf&_
-        "    0  ç®¡ ç† å¤‡ä»½ "&vbcrlf&vbcrlf,_
-        title&" å°å·¥å…·",_
-        "è¾“å…¥å¯¹åº”çš„åºå·(1æˆ–2æˆ–3) æ­¤ä¸ºæ—§ç‰ˆuiï¼Œè¯·ä½¿ç”¨ã€åŒå‡»è¿è¡Œã€‘å¯åŠ¨æ–°GUI")
+        "¡ù ´ËÎª¾É°æui£¬ÇëÊ¹ÓÃ¡¾Ë«»÷ÔËĞĞ¡¿Æô¶¯ĞÂGUI"&vbcrlf&vbcrlf& _
+        "   ¡ü¡ü¡ü¡ü¡ü¡ü¡ü ¾É°æui¿ÉÄÜÓĞ¹¦ÄÜÈ±Ê§"&vbcrlf&vbcrlf&vbcrlf&vbcrlf& _
+        "¡ù ¡¾±¸·İÑ¡Ïî¡¿"&vbcrlf&vbcrlf& _
+        "    1    ±¸ ·İ ¿ªÊ¼²Ëµ¥"&vbcrlf&vbcrlf& _
+        "    1.1  ±¸ ·İ ¿ªÊ¼²Ëµ¥ºÍÈÎÎñÀ¸ "&vbcrlf&vbcrlf&vbcrlf& _
+        "¡ù ¡¾»¹Ô­Ñ¡Ïî¡¿"&vbcrlf&vbcrlf& _
+        "    2     »¹ Ô­ ¿ªÊ¼²Ëµ¥¡¢ÇÒ²»¸²¸Ç¿ì½İ·½Ê½"&vbcrlf&vbcrlf& _
+        "    2.1   »¹ Ô­ ¿ªÊ¼²Ëµ¥+ »¹Ô­¸öÈËÓÃ»§¿ì½İ·½Ê½"&vbcrlf&vbcrlf& _
+        "    2.2   »¹ Ô­ ¿ªÊ¼²Ëµ¥+ »¹Ô­ËùÓĞÓÃ»§¿ì½İ·½Ê½"&vbcrlf&vbcrlf&vbcrlf& _
+        "    2.3   »¹ Ô­ ÈÎÎñÀ¸£¬ÇÒ²»¸²¸Ç¿ì½İ·½Ê½"&vbcrlf&vbcrlf& _
+        "    2.4   »¹ Ô­ ÈÎÎñÀ¸¡¢ÇÒ¸²¸Ç¿ì½İ·½Ê½"&vbcrlf&vbcrlf&vbcrlf& _
+        "    2.5   Ñ¡Ïî 2   + Ñ¡Ïî 2.3"&vbcrlf&vbcrlf& _
+        "    2.6   Ñ¡Ïî 2.1 + Ñ¡Ïî 2.3"&vbcrlf&vbcrlf& _
+        "    2.7   Ñ¡Ïî 2.2 + Ñ¡Ïî 2.3"&vbcrlf&vbcrlf& _
+        "    2.8   Ñ¡Ïî 2   + Ñ¡Ïî 2.4"&vbcrlf&vbcrlf& _
+        "    2.9   Ñ¡Ïî 2.1 + Ñ¡Ïî 2.4"&vbcrlf&vbcrlf& _
+        "    2.10  Ñ¡Ïî 2.2 + Ñ¡Ïî 2.4"&vbcrlf&vbcrlf&vbcrlf& _
+        "    0.0   ÖØÖÃ¿ªÊ¼²Ëµ¥"&vbcrlf&vbcrlf&vbcrlf&vbcrlf& _
+        "¡ù ¡¾¶¨Ê±±¸·İÑ¡Ïî¡¿"&vbcrlf&vbcrlf&_
+        "    3   ¿ª Æô£¨Ë¢ĞÂ£©¶¨Ê±×Ô¶¯±¸·İ ²»±¸·İÈÎÎñÀ¸"&vbcrlf&vbcrlf&_
+        "    3.1 ¿ª Æô£¨Ë¢ĞÂ£©¶¨Ê±×Ô¶¯±¸·İ ±¸·İÈÎÎñÀ¸"&vbcrlf&vbcrlf&_
+        "    4   ½û ÓÃ ¶¨Ê±×Ô¶¯±¸·İ"&vbcrlf&vbcrlf&_
+        "    5   Ğ¶ ÔØ ¶¨Ê±×Ô¶¯±¸·İ "&vbcrlf&vbcrlf&_
+        "    0  ¹Ü Àí ±¸·İ "&vbcrlf&vbcrlf,_
+        title&" Ğ¡¹¤¾ß",_
+        "ÊäÈë¶ÔÓ¦µÄĞòºÅ(1»ò2»ò3) ´ËÎª¾É°æui£¬ÇëÊ¹ÓÃ¡¾Ë«»÷ÔËĞĞ¡¿Æô¶¯ĞÂGUI")
     select case True
         case Ask=""
             Wscript.quit
-            msgbox "ç©ºå€¼"
+            msgbox "¿ÕÖµ"
         case Ask="1"
             call BackUpStartLayout(Path,null,null,null)
         case Ask="1.1"
             call BackUpStartLayout(Path,null,"--WithTaskBar",null)
              
         case Ask="2"
-            ' è¿˜åŸå¼€å§‹èœå•ã€ä¸”åªè¿˜åŸå·²æœ‰çš„å¿«æ·æ–¹å¼
+            ' »¹Ô­¿ªÊ¼²Ëµ¥¡¢ÇÒÖ»»¹Ô­ÒÑÓĞµÄ¿ì½İ·½Ê½
             call RestoreStartLayout(Path,"--WithStartLayout",null,null,null)
         case Ask="2.1"
-            ' è¿˜åŸå¼€å§‹èœå•ï¼Œä¸”è¿˜åŸä¸ªäººç”¨æˆ·å¿«æ·æ–¹å¼
+            ' »¹Ô­¿ªÊ¼²Ëµ¥£¬ÇÒ»¹Ô­¸öÈËÓÃ»§¿ì½İ·½Ê½
             call RestoreStartLayout(Path,"--WithStartLayout--User",null,null,null)
         case Ask="2.2"
-            ' è¿˜åŸå¼€å§‹èœå•ã€ä¸”è¿˜åŸæ‰€æœ‰ç”¨æˆ·å¿«æ·æ–¹å¼
+            ' »¹Ô­¿ªÊ¼²Ëµ¥¡¢ÇÒ»¹Ô­ËùÓĞÓÃ»§¿ì½İ·½Ê½
             RestoreTaskBarMode = null
             UserName = CreateObject("WScript.Network").UserName
             call RunAs(RestoreTaskBarMode,UserName,null)
 
         case Ask="2.3"
-            ' è¿˜åŸä»»åŠ¡æ ï¼Œä¸è¦†ç›–å¿«æ·æ–¹å¼
+            ' »¹Ô­ÈÎÎñÀ¸£¬²»¸²¸Ç¿ì½İ·½Ê½
             call RestoreStartLayout(Path,null,"--WithTaskBar",null,null,null)
         case Ask="2.4"
-            ' è¿˜åŸä»»åŠ¡æ ï¼Œä¸”è¦†ç›–å¿«æ·æ–¹å¼
+            ' »¹Ô­ÈÎÎñÀ¸£¬ÇÒ¸²¸Ç¿ì½İ·½Ê½
             call RestoreStartLayout(Path,null,"--WithTaskBar--WithLnk",null,null)
 
         case Ask="2.5"
-            ' é€‰é¡¹2 + é€‰é¡¹2.3
+            ' Ñ¡Ïî2 + Ñ¡Ïî2.3
             call RestoreStartLayout(Path,"--WithStartLayout","--WithTaskBar",null,null)
         case Ask="2.6"
-            ' é€‰é¡¹2.1 + é€‰é¡¹2.3
+            ' Ñ¡Ïî2.1 + Ñ¡Ïî2.3
             call RestoreStartLayout(Path,"--WithStartLayout--User","--WithTaskBar",null,null)
         case Ask="2.7"
-            ' é€‰é¡¹2.2 + é€‰é¡¹2.3
+            ' Ñ¡Ïî2.2 + Ñ¡Ïî2.3
             RestoreTaskBarMode = "--WithTaskBar"
             UserName = CreateObject("WScript.Network").UserName
             call RunAs(RestoreTaskBarMode,UserName,null)
         case Ask="2.8"
-            ' é€‰é¡¹2 + é€‰é¡¹2.4
+            ' Ñ¡Ïî2 + Ñ¡Ïî2.4
             call RestoreStartLayout(Path,"--WithStartLayout","--WithTaskBar--WithLnk",null,null)
         case Ask="2.9"
-            ' é€‰é¡¹2.1 + é€‰é¡¹2.4
+            ' Ñ¡Ïî2.1 + Ñ¡Ïî2.4
             call RestoreStartLayout(Path,"--WithStartLayout--User","--WithTaskBar--WithLnk",null,null)
         case Ask="2.10"
-            ' é€‰é¡¹2.2 + é€‰é¡¹2.4
+            ' Ñ¡Ïî2.2 + Ñ¡Ïî2.4
             RestoreTaskBarMode = "--WithTaskBar--WithLnk"
             UserName = CreateObject("WScript.Network").UserName
             call RunAs(RestoreTaskBarMode,UserName,null)
@@ -322,7 +322,7 @@ function SatrtLayout()
         case Ask="5"
             call removeTasksch("istips")
         case Ask="0"
-            CreateObject("Wscript.shell").run """"&Path&"\å¼€å§‹èœå•å¤‡ä»½"""
+            CreateObject("Wscript.shell").run """"&Path&"\¿ªÊ¼²Ëµ¥±¸·İ"""
         case else
             call SatrtLayout()
             Wscript.quit
@@ -331,7 +331,7 @@ end function
 
 
 
-' å¤‡ä»½å¼€å§‹èœå•æˆ–ä»»åŠ¡æ 
+' ±¸·İ¿ªÊ¼²Ëµ¥»òÈÎÎñÀ¸
 function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
     set Shell=CreateObject("Wscript.shell")
     Set Env=Shell.Environment("Process")
@@ -345,7 +345,7 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
     OemDefaultStartJson = LocalAppData &"\Microsoft\Windows\Shell\startlayout.json"
 
     RegPath = "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount"
-    RootFolder=Path&"\å¼€å§‹èœå•å¤‡ä»½\"
+    RootFolder=Path&"\¿ªÊ¼²Ëµ¥±¸·İ\"
     if not FSO.FolderExists(RootFolder) then
         Call CreateFolder(RootFolder)
     end if
@@ -365,18 +365,18 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
     
     end if
 
-' â€”â€”â€”â€” å¼‚æ­¥å¤„ç†çš„mshtaæç¤º
-    if IsNull(tips) then ProcessID = Start_InvokeTip("å¤‡ä»½")
+' ¡ª¡ª¡ª¡ª Òì²½´¦ÀíµÄmshtaÌáÊ¾
+    if IsNull(tips) then ProcessID = Start_InvokeTip("±¸·İ")
 
     if not FSO.FolderExists(Folder) then
         Call CreateFolder(Folder)
     end if
 
-    RegFile=Folder&"\å¼€å§‹èœå•å¤‡ä»½.reg"
+    RegFile=Folder&"\¿ªÊ¼²Ëµ¥±¸·İ.reg"
 
     Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount """&RegFile&"""" ,WindowStyle_Debug,true
     if not FSO.FileExists(RegFile) then
-        Shell.popup "ä¸èƒ½å¤‡ä»½å¼€å§‹èœå•æ³¨å†Œè¡¨ï¼Œå¯èƒ½è„šæœ¬ä¸æ”¯æŒæ­¤ç³»ç»Ÿç‰ˆæœ¬",0,"é”™è¯¯",16
+        Shell.popup "²»ÄÜ±¸·İ¿ªÊ¼²Ëµ¥×¢²á±í£¬¿ÉÄÜ½Å±¾²»Ö§³Ö´ËÏµÍ³°æ±¾",0,"´íÎó",16
     end if
     
     
@@ -397,10 +397,10 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
 
 
     if IsNull(WithTaskBar) then
-        OtherRegFile = Folder&"\å…¶ä»–å¼€å§‹èœå•è®¾ç½®.reg"
+        OtherRegFile = Folder&"\ÆäËû¿ªÊ¼²Ëµ¥ÉèÖÃ.reg"
         Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,WindowStyle_Debug,true
         
-        OtherStartRegFile = Folder&"\å…¶ä»–å¼€å§‹èœå•è®¾ç½®.reg"
+        OtherStartRegFile = Folder&"\ÆäËû¿ªÊ¼²Ëµ¥ÉèÖÃ.reg"
         contents = ReadFile(OtherRegFile)
         Newcontents = FilterReg(contents,"start","--include")
         TotalLine = split(Newcontents,vbcrlf)
@@ -421,10 +421,10 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
 
 
     elseif WithTaskBar="--WithTaskBar" then
-        OtherRegFile = Folder&"\å…¶ä»–ä»»åŠ¡æ è®¾ç½®.reg"
+        OtherRegFile = Folder&"\ÆäËûÈÎÎñÀ¸ÉèÖÃ.reg"
         Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced """&OtherRegFile&"""" ,WindowStyle_Debug,true
 
-        OtherStartRegFile = Folder&"\å…¶ä»–å¼€å§‹èœå•è®¾ç½®.reg"
+        OtherStartRegFile = Folder&"\ÆäËû¿ªÊ¼²Ëµ¥ÉèÖÃ.reg"
         contents = ReadFile(OtherRegFile)
         Newcontents = FilterReg(contents,"start","--include")
         TotalLine = split(Newcontents,vbcrlf)
@@ -433,7 +433,7 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
             call WriteFile(OtherStartRegFile,Newcontents)
         end if
 
-        OtherStartRegFile = Folder&"\å…¶ä»–ä»»åŠ¡æ è®¾ç½®.reg"
+        OtherStartRegFile = Folder&"\ÆäËûÈÎÎñÀ¸ÉèÖÃ.reg"
         contents = ReadFile(OtherRegFile)
         Newcontents = FilterReg(contents,"start","--exclude")
         TotalLine = split(Newcontents,vbcrlf)
@@ -442,16 +442,16 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
             call WriteFile(OtherStartRegFile,Newcontents)
         end if
 
-        RegTaskBarFile=Folder&"\ä»»åŠ¡æ å¤‡ä»½.reg"
+        RegTaskBarFile=Folder&"\ÈÎÎñÀ¸±¸·İ.reg"
         Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband """&RegTaskBarFile&"""" ,WindowStyle_Debug,true
         if not FSO.FileExists(RegTaskBarFile) then
-            Shell.popup "ä¸èƒ½å¤‡ä»½ä»»åŠ¡æ æ³¨å†Œè¡¨ï¼Œå¯èƒ½è„šæœ¬ä¸æ”¯æŒæ­¤ç³»ç»Ÿç‰ˆæœ¬",0,"é”™è¯¯",16
+            Shell.popup "²»ÄÜ±¸·İÈÎÎñÀ¸×¢²á±í£¬¿ÉÄÜ½Å±¾²»Ö§³Ö´ËÏµÍ³°æ±¾",0,"´íÎó",16
         end if
 
-        RegToolBarFile=Folder&"\å·¥å…·æ å¤‡ä»½.reg"
+        RegToolBarFile=Folder&"\¹¤¾ßÀ¸±¸·İ.reg"
         Shell.run "cmd /c echo y|REG EXPORT HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Streams\Desktop """&RegToolBarFile&"""" ,WindowStyle_Debug,true
         if not FSO.FileExists(RegToolBarFile) then 
-            Shell.popup "ä¸èƒ½å¤‡ä»½å·¥å…·æ æ æ³¨å†Œè¡¨ï¼Œå¯èƒ½è„šæœ¬ä¸æ”¯æŒæ­¤ç³»ç»Ÿç‰ˆæœ¬",0,"é”™è¯¯",16
+            Shell.popup "²»ÄÜ±¸·İ¹¤¾ßÀ¸À¸×¢²á±í£¬¿ÉÄÜ½Å±¾²»Ö§³Ö´ËÏµÍ³°æ±¾",0,"´íÎó",16
         end if
 
         if IsNull(tips) then 
@@ -462,35 +462,35 @@ function BackUpStartLayout(Path,Folder,WithTaskBar,tips)
         Shell.run "powershell -noprofile -executionpolicy Bypass -file """&PathOfCurrenScript &"\Compress.ps1"" """&Folder &""" -WithTaskBar",WindowStyle_Debug,true
     end If
     
-' â€”â€”â€”â€” å…³é—­å¼‚æ­¥å¤„ç†çš„mshtaæç¤º
+' ¡ª¡ª¡ª¡ª ¹Ø±ÕÒì²½´¦ÀíµÄmshtaÌáÊ¾
     if IsNull(tips) then call Stop_InvokeTip(ProcessID)
 
     if IsNull(WithTaskBar) Then
         if FSO.FileExists(RegFile) then
-            Info = "å¤‡ä»½ å¼€å§‹èœå• æ“ä½œå®Œæˆ"
+            Info = "±¸·İ ¿ªÊ¼²Ëµ¥ ²Ù×÷Íê³É"
             PopupTimeout = 1
         else
-            Info = "å¤‡ä»½ å¼€å§‹èœå• å¤±è´¥"
+            Info = "±¸·İ ¿ªÊ¼²Ëµ¥ Ê§°Ü"
             infocode = 16
             PopupTimeout = 3
         end if
     else
         if FSO.FileExists(RegFile) and FSO.FileExists(RegTaskBarFile) then
-            Info = "å¤‡ä»½ å¼€å§‹èœå• å’Œ ä»»åŠ¡æ  æ“ä½œå®Œæˆ"
+            Info = "±¸·İ ¿ªÊ¼²Ëµ¥ ºÍ ÈÎÎñÀ¸ ²Ù×÷Íê³É"
             PopupTimeout = 1
         else 
-            Info = "å¤‡ä»½ å¼€å§‹èœå• å’Œ ä»»åŠ¡æ  å¤±è´¥"
+            Info = "±¸·İ ¿ªÊ¼²Ëµ¥ ºÍ ÈÎÎñÀ¸ Ê§°Ü"
             infocode = 16
             PopupTimeout = 3
         end if
     end if
-if IsNull(tips) then Shell.popup info,PopupTimeout,"å¤‡ä»½ç»“æœæç¤º",infocode
+if IsNull(tips) then Shell.popup info,PopupTimeout,"±¸·İ½á¹ûÌáÊ¾",infocode
 end function
 
 
 
 
-' è¿˜åŸå¼€å§‹èœå•æˆ–ä»»åŠ¡æ 
+' »¹Ô­¿ªÊ¼²Ëµ¥»òÈÎÎñÀ¸
 function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,RestoreFolder)
     set Shell=CreateObject("Wscript.shell")
     Set Env=Shell.Environment("Process")
@@ -517,7 +517,7 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
 
     if isnull(RestoreFolder) then 
         if SeletcRestoreFolderByCustom=false then
-            RootFolderReStore = Path&"\å¼€å§‹èœå•å¤‡ä»½"
+            RootFolderReStore = Path&"\¿ªÊ¼²Ëµ¥±¸·İ"
         elseif SeletcRestoreFolderByCustom=true then
             RootFolderReStore = null
         end if
@@ -526,40 +526,40 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
         RootFolderReStore = null
     end if
 
-    do until FSO.FileExists( RestoreFolder&"\å¼€å§‹èœå•å¤‡ä»½.reg")
-        title = "æ‰€é€‰æ–‡ä»¶å¤¹ä¸åŒ…å«è¿˜åŸæ‰€éœ€æ–‡ä»¶" &vbcrlf &vbcrlf &_ 
-                "è¯·é‡æ–°é€‰æ‹©è¦è¿˜åŸçš„æ–‡ä»¶å¤¹ç›®å½•ï¼Œé€‰æ‹©æ ¹ç›®å½•æ˜¯åˆ·æ–°"
+    do until FSO.FileExists( RestoreFolder&"\¿ªÊ¼²Ëµ¥±¸·İ.reg")
+        title = "ËùÑ¡ÎÄ¼ş¼Ğ²»°üº¬»¹Ô­ËùĞèÎÄ¼ş" &vbcrlf &vbcrlf &_ 
+                "ÇëÖØĞÂÑ¡ÔñÒª»¹Ô­µÄÎÄ¼ş¼ĞÄ¿Â¼£¬Ñ¡Ôñ¸ùÄ¿Â¼ÊÇË¢ĞÂ"
         RestoreFolder = SelectFolder(RootFolderReStore,title,RestoreStartMode,RestoreTaskBarMode,UserName)
     loop
     
 
-' â€”â€”â€”â€” å¼‚æ­¥å¤„ç†çš„mshtaæç¤º
-    ProcessID = Start_InvokeTip("è¿˜åŸ")
+' ¡ª¡ª¡ª¡ª Òì²½´¦ÀíµÄmshtaÌáÊ¾
+    ProcessID = Start_InvokeTip("»¹Ô­")
     
-    ' è¿˜åŸå‰å¤‡ä»½
+    ' »¹Ô­Ç°±¸·İ
     if not ((IsNull(RestoreStartMode) or RestoreStartMode="0") and (IsNull(RestoreTaskBarMode) or RestoreTaskBarMode="0")) Then
         if BeforeRestore=true then
-            BeforeRestoreFolder=Path&"\å¼€å§‹èœå•å¤‡ä»½\â€”â€”â€”â€”â€”â€”â€”â€”"&UserDomain&"_"&UserName&"_è¿˜åŸå‰çš„å¤‡ä»½"
+            BeforeRestoreFolder=Path&"\¿ªÊ¼²Ëµ¥±¸·İ\¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"&UserDomain&"_"&UserName&"_»¹Ô­Ç°µÄ±¸·İ"
             call BackUpStartLayout(Path,BeforeRestoreFolder,"--WithTaskBar","notips")
         end if
     end if
 
     
-' â€”â€”â€”â€” è¿˜åŸè§£å‹å¼€å§‹èœå•å¿«æ·æ–¹å¼
+' ¡ª¡ª¡ª¡ª »¹Ô­½âÑ¹¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½
     if RestoreStartMode="--WithStartLayout--User" or RestoreStartMode="2" then
-        Unzip RestoreFolder& "\å¼€å§‹èœå•å¿«æ·æ–¹å¼User.zip", startFolderUser
+        Unzip RestoreFolder& "\¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½User.zip", startFolderUser
     elseif RestoreStartMode="--WithStartLayout--AllUser" or RestoreStartMode="3" then
-        Unzip RestoreFolder& "\å¼€å§‹èœå•å¿«æ·æ–¹å¼User.zip", startFolderUser
-        Unzip RestoreFolder& "\å¼€å§‹èœå•å¿«æ·æ–¹å¼Alluser.zip", startFolderAllUser
+        Unzip RestoreFolder& "\¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½User.zip", startFolderUser
+        Unzip RestoreFolder& "\¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½Alluser.zip", startFolderAllUser
     end if
 
-' â€”â€”â€”â€” è¿˜åŸå¼€å§‹èœå•
+' ¡ª¡ª¡ª¡ª »¹Ô­¿ªÊ¼²Ëµ¥
     if (not IsNull(RestoreStartMode)) and RestoreStartMode<>"0" then
         if FSO.FileExists( RestoreFolder&"\DefaultLayouts.xml") then
             FSO.CopyFile RestoreFolder&"\DefaultLayouts.xml",FileLayout
         end if
 
-        ' é€‚é…windows11
+        ' ÊÊÅäwindows11
         if  FSO.FileExists( RestoreFolder&"\start.bin") then
             FSO.CopyFile RestoreFolder&"\start.bin",StartBin
         end if
@@ -567,10 +567,10 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
             FSO.CopyFile RestoreFolder&"\start2.bin",Start2Bin
         end if
         
-        RegFile=RestoreFolder&"\å¼€å§‹èœå•å¤‡ä»½.reg"
+        RegFile=RestoreFolder&"\¿ªÊ¼²Ëµ¥±¸·İ.reg"
         Shell.run "REG IMPORT """&RegFile&"""" ,WindowStyle_Debug,true
 
-        StartRegFile = RestoreFolder& "\å…¶ä»–å¼€å§‹èœå•è®¾ç½®.reg"
+        StartRegFile = RestoreFolder& "\ÆäËû¿ªÊ¼²Ëµ¥ÉèÖÃ.reg"
         if FSO.FileExists(StartRegFile) then
             Shell.run "REG IMPORT """&StartRegFile&"""" ,WindowStyle_Debug,true
         end if
@@ -579,30 +579,30 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
     end if
 
 
-' â€”â€”â€”â€” è¿˜åŸè§£å‹ä»»åŠ¡æ å¿«æ·æ–¹å¼
+' ¡ª¡ª¡ª¡ª »¹Ô­½âÑ¹ÈÎÎñÀ¸¿ì½İ·½Ê½
     if RestoreTaskBarMode="--WithTaskBar--WithLnk" or RestoreTaskBarMode="2" then
         AppData = Env.Item("AppData")
         TaskBarFolder=AppData&"\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"
-        if FSO.FileExists( RestoreFolder& "\ä»»åŠ¡æ å¿«æ·æ–¹å¼.zip") then
-            Unzip RestoreFolder& "\ä»»åŠ¡æ å¿«æ·æ–¹å¼.zip", TaskBarFolder
+        if FSO.FileExists( RestoreFolder& "\ÈÎÎñÀ¸¿ì½İ·½Ê½.zip") then
+            Unzip RestoreFolder& "\ÈÎÎñÀ¸¿ì½İ·½Ê½.zip", TaskBarFolder
         end if
     end if
 
-' â€”â€”â€”â€” è¿˜åŸä»»åŠ¡æ 
+' ¡ª¡ª¡ª¡ª »¹Ô­ÈÎÎñÀ¸
     if (not isnull(RestoreTaskBarMode)) and RestoreTaskBarMode<> "0" then
-        RegTaskBarFile = RestoreFolder&"\ä»»åŠ¡æ å¤‡ä»½.reg"
+        RegTaskBarFile = RestoreFolder&"\ÈÎÎñÀ¸±¸·İ.reg"
         if FSO.FileExists(RegTaskBarFile) then
             Shell.run "REG IMPORT """&RegTaskBarFile&"""" ,WindowStyle_Debug,true
             IsNeedRestartExplorer = true
         end if
 
-        RegToolBarFile = RestoreFolder&"\å·¥å…·æ å¤‡ä»½.reg"
+        RegToolBarFile = RestoreFolder&"\¹¤¾ßÀ¸±¸·İ.reg"
         if FSO.FileExists(RegToolBarFile) then
             Shell.run "REG IMPORT """&RegToolBarFile&"""" ,WindowStyle_Debug,true
             IsNeedRestartExplorer = true
         end if
 
-        TaskRegFile = RestoreFolder& "\å…¶ä»–ä»»åŠ¡æ è®¾ç½®.reg"
+        TaskRegFile = RestoreFolder& "\ÆäËûÈÎÎñÀ¸ÉèÖÃ.reg"
         if FSO.FileExists(TaskRegFile) then
             TaskBarReg = ReadFile(TaskRegFile)
             Shell.run "REG IMPORT """&TaskRegFile&"""" ,WindowStyle_Debug,true
@@ -612,39 +612,39 @@ function RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,Re
         if IsNeedRestartExplorer = true then RestartExplorer()
     end if
 
-' â€”â€”â€”â€” å…³é—­å¼‚æ­¥å¤„ç†çš„mshtaæç¤º
+' ¡ª¡ª¡ª¡ª ¹Ø±ÕÒì²½´¦ÀíµÄmshtaÌáÊ¾
     call Stop_InvokeTip(ProcessID)
 
-' â€”â€”â€”â€” æç¤ºæ“ä½œå®Œæˆ
+' ¡ª¡ª¡ª¡ª ÌáÊ¾²Ù×÷Íê³É
     if (not IsNull(RestoreStartMode) and RestoreStartMode<>"0")  and (IsNull(RestoreTaskBarMode) or RestoreTaskBarMode="0") then
-        Info = "è¿˜åŸ å¼€å§‹èœå• æ“ä½œå®Œæˆ"
+        Info = "»¹Ô­ ¿ªÊ¼²Ëµ¥ ²Ù×÷Íê³É"
     elseif (IsNull(RestoreStartMode) or RestoreStartMode="0") and (not IsNull(RestoreTaskBarMode) and RestoreTaskBarMode<>"0") Then
-        Info = "è¿˜åŸ ä»»åŠ¡æ å’Œå·¥å…·æ  æ“ä½œå®Œæˆ"
+        Info = "»¹Ô­ ÈÎÎñÀ¸ºÍ¹¤¾ßÀ¸ ²Ù×÷Íê³É"
     elseif (not IsNull(RestoreStartMode) and RestoreStartMode<>"0") and(not IsNull(RestoreTaskBarMode) and RestoreTaskBarMode<>"0") Then
-        Info = "è¿˜åŸ å¼€å§‹èœå•ã€ä»»åŠ¡æ å’Œå·¥å…·æ  æ“ä½œå®Œæˆ"
+        Info = "»¹Ô­ ¿ªÊ¼²Ëµ¥¡¢ÈÎÎñÀ¸ºÍ¹¤¾ßÀ¸ ²Ù×÷Íê³É"
     elseif (IsNull(RestoreStartMode) or RestoreStartMode="0") and (IsNull(RestoreTaskBarMode) or RestoreTaskBarMode="0") Then
-        Info = "æ‚¨æ²¡æœ‰é€‰æ‹©è¦è¿˜åŸçš„æ“ä½œ"
+        Info = "ÄúÃ»ÓĞÑ¡ÔñÒª»¹Ô­µÄ²Ù×÷"
     end if
 Shell.popup Info, 1
 end function
 
 
 
-' é€‰æ‹©è¿˜åŸçš„æ–‡ä»¶å¤¹
+' Ñ¡Ôñ»¹Ô­µÄÎÄ¼ş¼Ğ
 Function SelectFolder(default,title,RestoreStartMode,RestoreTaskBarMode,UserName)
     If IsNull(default) Then
         default = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"
     End If
 
     If IsNull(title) Then
-        title = "é€‰æ‹©è¦è¿˜åŸçš„æ–‡ä»¶å¤¹ç›®å½•ï¼Œé€‰æ‹©æ ¹ç›®å½•æ˜¯åˆ·æ–°"
+        title = "Ñ¡ÔñÒª»¹Ô­µÄÎÄ¼ş¼ĞÄ¿Â¼£¬Ñ¡Ôñ¸ùÄ¿Â¼ÊÇË¢ĞÂ"
     End If
 
     Set Folder = CreateObject("Shell.Application").BrowseForFolder(0, title, 0, default)
     If Folder Is Nothing Then
         Wscript.quit
     elseif Folder.Self.Path=default then
-' â€”â€”â€”â€”  é‡æ–°è½½å…¥æ–‡ä»¶å¤¹
+' ¡ª¡ª¡ª¡ª  ÖØĞÂÔØÈëÎÄ¼ş¼Ğ
         call RestoreStartLayout(Path,RestoreStartMode,RestoreTaskBarMode,UserName,null)
         Wscript.quit
     else
@@ -654,16 +654,16 @@ End Function
 
 
 
-' é‡ç½®å¼€å§‹èœå•æˆ–ä»»åŠ¡æ 
+' ÖØÖÃ¿ªÊ¼²Ëµ¥»òÈÎÎñÀ¸
 Function ResetStartLayout()
     set FSO=CreateObject("scripting.filesystemobject")
     
     UserName=CreateObject("WScript.Network").UserName
     UserDomain=CreateObject("WScript.Network").UserDomain
 
-    ' é‡ç½®å‰å¤‡ä»½
+    ' ÖØÖÃÇ°±¸·İ
     if BeforeRestore=true then
-        BeforeRestoreFolder=Path&"\å¼€å§‹èœå•å¤‡ä»½\â€”â€”â€”â€”â€”â€”â€”â€”"&UserDomain&"_"&UserName&"_è¿˜åŸå‰çš„å¤‡ä»½"
+        BeforeRestoreFolder=Path&"\¿ªÊ¼²Ëµ¥±¸·İ\¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª"&UserDomain&"_"&UserName&"_»¹Ô­Ç°µÄ±¸·İ"
         call BackUpStartLayout(Path,BeforeRestoreFolder,"--WithTaskBar","notips")
     end if
 
@@ -693,12 +693,12 @@ Function ResetStartLayout()
     Shell.regdelete "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\Start_Layout"
     on error goto 0
     call KillStartMenuProcess()
-    Shell.popup "é‡ç½®èœå•æ“ä½œå®Œæˆ",1
+    Shell.popup "ÖØÖÃ²Ëµ¥²Ù×÷Íê³É",1
 end function
 
 
 
-' åˆ›å»ºæ–‡ä»¶å¤¹
+' ´´½¨ÎÄ¼ş¼Ğ
 Function CreateFolder(path)
     set FSO=CreateObject("scripting.filesystemobject")
     Set getDrivers=FSO.Drives
@@ -711,7 +711,7 @@ Function CreateFolder(path)
 End Function
 
 
-' å‹ç¼©å‡½æ•°ï¼Œä¸æ”¯æŒunicodeè·¯å¾„
+' Ñ¹Ëõº¯Êı£¬²»Ö§³ÖunicodeÂ·¾¶
 Function Zip(ZipSourcePath,ZipFile)
     Set fso = CreateObject("Scripting.FileSystemObject")
     Set f = fso.CreateTextFile(ZipFile, True)
@@ -729,7 +729,7 @@ Function Zip(ZipSourcePath,ZipFile)
 End Function
 
 
-' è§£å‹å‡½æ•°ï¼Œæ”¯æŒunicodeè·¯å¾„
+' ½âÑ¹º¯Êı£¬Ö§³ÖunicodeÂ·¾¶
 Sub UnZip(ZipFile,TargetPath)
     Set fso = CreateObject("Scripting.FileSystemObject")
     If NOT fso.FolderExists(TargetPath) Then
@@ -744,7 +744,7 @@ Sub UnZip(ZipFile,TargetPath)
 End Sub
 
 
-' å…³é—­å¼‚æ­¥å¤„ç†çš„æ“ä½œæç¤ºçš„å‡½æ•°
+' ¹Ø±ÕÒì²½´¦ÀíµÄ²Ù×÷ÌáÊ¾µÄº¯Êı
 function Stop_InvokeTip(processid)
 set WR=getobject("winmgmts:\\.\root\cimv2") 
 set ps=WR.execquery("select * from win32_process where processid = "&processid)
@@ -757,17 +757,17 @@ for each Oneof in ps
 next
 end function
 
-' å¼‚æ­¥å¤„ç†çš„æ“ä½œæç¤ºçš„å‡½æ•°
+' Òì²½´¦ÀíµÄ²Ù×÷ÌáÊ¾µÄº¯Êı
 function Start_InvokeTip(StringTips)
         Set Shell = CreateObject("WScript.Shell")
-        mshta = "mshta ""vbscript:createobject(""wscript.shell"").popup(""vbsåå°æ­£åœ¨"&StringTips&"â€¦â€¦"",0,""vbsåå°æ­£åœ¨"&StringTips&"â€¦â€¦"") & window.close"""
+        mshta = "mshta ""vbscript:createobject(""wscript.shell"").popup(""vbsºóÌ¨ÕıÔÚ"&StringTips&"¡­¡­"",0,""vbsºóÌ¨ÕıÔÚ"&StringTips&"¡­¡­"") & window.close"""
         Set oExec = Shell.exec(mshta)
 Start_InvokeTip = oexec.processid
 end function
 
 
 
-' ç®¡ç†å‘˜è¿è¡Œ
+' ¹ÜÀíÔ±ÔËĞĞ
 function RunAs(RestoreTaskBarMode,UserName,RestoreFolder)
     set Shell=CreateObject("Shell.Application") 
     Shell.ShellExecute "wscript.exe" _ 
@@ -776,8 +776,8 @@ function RunAs(RestoreTaskBarMode,UserName,RestoreFolder)
 end function
 
 
-' å¯ç”¨ä»»åŠ¡è®¡åˆ’
-sub enableTasksch(WithTaskBar,WithRunBackup)  ' å¯ç”¨æœ¬è„šæœ¬ä»»åŠ¡è®¡åˆ’
+' ÆôÓÃÈÎÎñ¼Æ»®
+sub enableTasksch(WithTaskBar,WithRunBackup)  ' ÆôÓÃ±¾½Å±¾ÈÎÎñ¼Æ»®
     set FSO=createobject("Scripting.FileSystemObject")
     PathOfCurrenScript = FSO.GetFile(Wscript.ScriptFullName).ParentFolder.Path
     UserName=CreateObject("WScript.Network").UserName
@@ -825,23 +825,23 @@ sub enableTasksch(WithTaskBar,WithRunBackup)  ' å¯ç”¨æœ¬è„šæœ¬ä»»åŠ¡è®¡åˆ’
     Set Action = taskDefinition.Actions.Create(0)
     Action.Path = "wscript"
     Action.Arguments= _
-        """"&PathOfCurrenScript&"\å¤‡ä»½è¿˜åŸå¼€å§‹èœå•.vbs"" "&Argument&""
+        """"&PathOfCurrenScript&"\±¸·İ»¹Ô­¿ªÊ¼²Ëµ¥.vbs"" "&Argument&""
     
     CreateOrUpdate=6
     TaskPath="YuphizScript\"&UserName&"\"&title
-    TaskName="è‡ªåŠ¨å¤‡ä»½"
+    TaskName="×Ô¶¯±¸·İ"
     Call rootFolder.RegisterTaskDefinition( _
         TaskPath&"\"&TaskName, taskDefinition, CreateOrUpdate, _
         Empty , Empty,3)
 end sub
 
 
-' ç¦ç”¨ä»»åŠ¡è®¡åˆ’
+' ½ûÓÃÈÎÎñ¼Æ»®
 sub disabledTasksch(tips)
     set Shell = CreateObject("Wscript.Shell") 
     UserName = CreateObject("WScript.Network").UserName
     TaskPath = "YuphizScript\"&UserName&"\"&title
-    ThisTask = TaskPath&"\è‡ªåŠ¨å¤‡ä»½"
+    ThisTask = TaskPath&"\×Ô¶¯±¸·İ"
     if isnull(tips) then 
         WindowStyle = 1
     elseif tips="notips" then
@@ -852,20 +852,20 @@ sub disabledTasksch(tips)
         "@echo off &"&_
         "for %i in ("&ThisTask&") do (SCHTASKS /change /disable /tn %i)" _
     ),WindowStyle,true
-    if isnull(tips) then Shell.popup "æˆåŠŸåœç”¨ã€"&title&"ã€‘",1
+    if isnull(tips) then Shell.popup "³É¹¦Í£ÓÃ¡¾"&title&"¡¿",1
 end sub
 
 
-' ç§»é™¤ä»»åŠ¡è®¡åˆ’
+' ÒÆ³ıÈÎÎñ¼Æ»®
 sub removeTasksch(tips)
     UserName=CreateObject("WScript.Network").UserName
     set Shell=CreateObject("Wscript.Shell") 
 
     if not isnull(tips) then
         askdelete=Shell.popup( _
-        "é˜²è¯¯æ“ä½œï¼ŒçœŸçš„è¦åˆ é™¤ã€"&title&"ã€‘å—ï¼Ÿ", _
+        "·ÀÎó²Ù×÷£¬ÕæµÄÒªÉ¾³ı¡¾"&title&"¡¿Âğ£¿", _
         0, _
-        "é˜²è¯¯æ“ä½œï¼Œè¯·å†ç¡®è®¤",_
+        "·ÀÎó²Ù×÷£¬ÇëÔÙÈ·ÈÏ",_
         1+48+256+4096 _
         )
         if askdelete=2 then wscript.quit
@@ -875,23 +875,23 @@ sub removeTasksch(tips)
     call ShellTask.connect()
     On Error Resume Next
     set rootFolder=ShellTask.getfolder("\YuphizScript\"&UserName)
-    call rootFolder.DeleteTask(title&"\è‡ªåŠ¨å¤‡ä»½",0)
+    call rootFolder.DeleteTask(title&"\×Ô¶¯±¸·İ",0)
     rootFolder.deleteFolder title,0
     ' if err.number<> 0 then
-    '     Shell.Popup "ä¸å­˜åœ¨è‡ªåŠ¨å¤‡ä»½çš„ä»»åŠ¡è®¡åˆ’"
+    '     Shell.Popup "²»´æÔÚ×Ô¶¯±¸·İµÄÈÎÎñ¼Æ»®"
     '     exit sub
     ' end if
     On Error goto 0
     '  wscript.sleep 700
     ' Shell.popup _
-    '   "æˆåŠŸå¸è½½ã€"&title&"ã€‘"&vbcrlf&_
-    '   "å·²åˆ é™¤å…¨éƒ¨çš„ä»»åŠ¡è®¡åˆ’",_
+    '   "³É¹¦Ğ¶ÔØ¡¾"&title&"¡¿"&vbcrlf&_
+    '   "ÒÑÉ¾³ıÈ«²¿µÄÈÎÎñ¼Æ»®",_
     ' 3
 end sub
 
 
 
-' å…³é—­å¼€å§‹èœå•è¿›ç¨‹
+' ¹Ø±Õ¿ªÊ¼²Ëµ¥½ø³Ì
 sub KillStartMenuProcess()
 Set Shell=CreateObject("WScript.Shell")
 set WinRC=getobject("winmgmts:\\.\root\cimv2")
@@ -905,7 +905,7 @@ end sub
 
 
 
-' è·å–ç³»ç»Ÿç‰ˆæœ¬å·
+' »ñÈ¡ÏµÍ³°æ±¾ºÅ
 function GetSystemVersion()
     set WinRC=getobject("winmgmts:\\.\root\cimv2")
     set GetSystemInfos=WinRC.execquery("select * from Win32_OperatingSystem")
@@ -917,7 +917,7 @@ end function
 
 
 
-'éå†æ–‡ä»¶å¤¹å¹¶åˆ é™¤ç¬¦åˆæ¡ä»¶çš„æ–‡ä»¶å¤¹
+'±éÀúÎÄ¼ş¼Ğ²¢É¾³ı·ûºÏÌõ¼şµÄÎÄ¼ş¼Ğ
 function DeleteFilesTree(PathSource)
 set Shell=CreateObject("Wscript.Shell")
 set FSO=CreateObject("Scripting.FileSystemObject")
@@ -934,10 +934,10 @@ for each Oneof in SubFolders
     daycomparison=DateDiff("d",Oneof.DateLastModified,now)
     if daycomparison>=DeleteBeforeDay and InStr(1,Oneof.Name,FolderNameKey,1) > 0  and InStr(1,Oneof.Name,"_AutoBakvp",1) > 0  then
         message= _
-            "æ–‡ä»¶å¤¹ï¼š" & Folders &vbcrlf&_
-            "æ–‡ä»¶ï¼š" & Oneof.Name &vbcrlf&_
-            "æ–‡ä»¶æœ€åä¿®æ”¹æ—¥æœŸï¼š" & Oneof.DateLastModified &vbcrlf&_
-            "æ–‡ä»¶ç›¸å·®æ—¥æœŸï¼š" & daycomparison
+            "ÎÄ¼ş¼Ğ£º" & Folders &vbcrlf&_
+            "ÎÄ¼ş£º" & Oneof.Name &vbcrlf&_
+            "ÎÄ¼ş×îºóĞŞ¸ÄÈÕÆÚ£º" & Oneof.DateLastModified &vbcrlf&_
+            "ÎÄ¼şÏà²îÈÕÆÚ£º" & daycomparison
         msgBox message
         'wscript.quit
             if DeleteToReCycleBin = false then
@@ -952,7 +952,7 @@ end function
 
 
 
-' åˆ é™¤æ–‡ä»¶åˆ°å›æ”¶ç«™
+' É¾³ıÎÄ¼şµ½»ØÊÕÕ¾
 function DeleteFileToRecycle(PathFile,IsConfirm)
     Set objReg=GetObject( _
 "winmgmts:{impersonationLevel=impersonate}!\\.\root\default:StdRegProv")
@@ -962,7 +962,7 @@ function DeleteFileToRecycle(PathFile,IsConfirm)
         ValueStateArray
     ValueBackupState=ValueStateArray 'P'
     
-    ValueStateArray(4)=IsConfirm 'åˆ é™¤ç¡®è®¤ï¼Œ39ä¸ºé™é»˜åˆ é™¤ï¼Œ35ä¸ºåˆ é™¤å‰ç¡®è®¤
+    ValueStateArray(4)=IsConfirm 'É¾³ıÈ·ÈÏ£¬39Îª¾²Ä¬É¾³ı£¬35ÎªÉ¾³ıÇ°È·ÈÏ
     objReg.SetBinaryValue &H80000001, _
         "Software\Microsoft\Windows\CurrentVersion\Explorer", _
         "ShellState", _
@@ -974,7 +974,7 @@ CreateObject("Shell.Application").NameSpace(0).ParseName(PathFile).InvokeVerb("d
         ValueBackupState
 end function
 
-' è¯»å–unicodeå­—ç¬¦æ–‡ä»¶
+' ¶ÁÈ¡unicode×Ö·ûÎÄ¼ş
 Function ReadFile(FilePath)
     Dim String
     Set Stream = CreateObject("ADODB.stream")
@@ -989,7 +989,7 @@ Function ReadFile(FilePath)
     ReadFile = String
 End Function
 
-' å†™å…¥unicodeå­—ç¬¦æ–‡ä»¶
+' Ğ´Èëunicode×Ö·ûÎÄ¼ş
 Sub WriteFile(FilePath,Msg)
     Set fso = WScript.CreateObject("Scripting.Filesystemobject")
     Set Stream = CreateObject("ADODB.Stream")
@@ -1015,7 +1015,7 @@ Sub WriteFile(FilePath,Msg)
     set Stream = nothing 'I'
 End Sub
 
-' è¿‡æ»¤æƒ³è¦çš„æ³¨å†Œè¡¨
+' ¹ıÂËÏëÒªµÄ×¢²á±í
 function FilterReg(contents,string,mode)
     contentsArray = split(contents,vbcrlf)
     Newcontents = "Windows Registry Editor Version 5.00"
@@ -1035,7 +1035,7 @@ function FilterReg(contents,string,mode)
         end if
     next
 
-    ' ç§»å‡ºç©ºSection
+    ' ÒÆ³ö¿ÕSection
     NewcontentsArray = split(Newcontents,vbcrlf)
     TotalLine = ubound(NewcontentsArray)
     Newcontents = "Windows Registry Editor Version 5.00"
@@ -1062,8 +1062,8 @@ function FilterReg(contents,string,mode)
 FilterReg = Newcontents
 end function
 
-'é‡å¯èµ„æºç®¡ç†å™¨å¹¶é‡æ–°æ‰“å¼€ä¸Šæ¬¡çš„ç›®å½•
-sub RestartExplorer()    'é‡å¯èµ„æºç®¡ç†å™¨å¹¶é‡æ–°æ‰“å¼€ä¸Šæ¬¡çš„ç›®å½•
+'ÖØÆô×ÊÔ´¹ÜÀíÆ÷²¢ÖØĞÂ´ò¿ªÉÏ´ÎµÄÄ¿Â¼
+sub RestartExplorer()    'ÖØÆô×ÊÔ´¹ÜÀíÆ÷²¢ÖØĞÂ´ò¿ªÉÏ´ÎµÄÄ¿Â¼
     On Error Resume Next
 
     Dim ArrayPathFonders(), oAppShell, WindowOfoAppShell, Shell
@@ -1097,7 +1097,7 @@ sub RestartExplorer()    'é‡å¯èµ„æºç®¡ç†å™¨å¹¶é‡æ–°æ‰“å¼€ä¸Šæ¬¡çš„ç›®å½•
         ' Shell.Run "explorer",0,True
         Shell.Run "cmd /c start explorer",WindowStyle_Debug,True
         if err.number = -2147024894 then
-            msgbox "é‡å¯èµ„æºç®¡ç†å™¨å¤±è´¥ï¼Œè¯·æ‰‹åŠ¨é‡å¯"
+            msgbox "ÖØÆô×ÊÔ´¹ÜÀíÆ÷Ê§°Ü£¬ÇëÊÖ¶¯ÖØÆô"
             exit sub
         end if
     end if

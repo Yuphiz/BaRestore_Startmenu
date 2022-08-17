@@ -2,7 +2,7 @@
 <head>
 <meta charset="UTF-8" http-equiv="x-ua-compatible" content="IE=11,IE=edge,chrome=1">
 <HTA:APPLICATION ID="oHTA"
-    APPLICATIONNAME="备份还原开始菜单GUI v0.6.1 By --@YUPHIZ"
+    APPLICATIONNAME="备份还原开始菜单GUI v0.6.2 By --@YUPHIZ"
     BORDER="normal"
     BORDERSTYLE="normal"
     CAPTION="yes"
@@ -14,7 +14,7 @@
     SINGLEINSTANCE="yes"
     SCROLL="yes"
     SYSMENU="yes"
-    VERSION="0.6.1"
+    VERSION="0.6.2"
     WINDOWSTATE="normal"/>
 <script language="JavaScript" defer="defer">
     window.offscreenBuffering = true;
@@ -37,7 +37,7 @@
         window.resizeTo(x,y)
         LastWidth = document.body.offsetWidth;
         window.moveTo(mx,my)
-        document.title="备份还原开始菜单GUI v0.6.1 By --@YUPHIZ"
+        document.title="备份还原开始菜单GUI v0.6.2 By --@YUPHIZ"
         setTheme()
         Load_WindowStyle(ratio)
         if (!(FSO.FileExists(PathOfCurrenScript+"\\config.json"))){
@@ -194,7 +194,9 @@
 
 
     function setTheme() {
-        AppStyle = Shell.RegRead("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\AppsUseLightTheme")
+        AppStyle = 1
+        try{ AppStyle = Shell.RegRead("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\AppsUseLightTheme")}catch(err){return;}
+        // AppStyle = Shell.RegRead("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize\\AppsUseLightTheme")
         CurrentTheme = document.bgColor
         if ((CurrentTheme !== "#fffffe" && AppStyle == 1) || (CurrentTheme !== "#333336" && AppStyle == 0)) {
             isNeedChangeTheme = true
@@ -896,7 +898,7 @@
     <div ondblclick="WindowMaximize.Click();window.onmousemove=false" onmousedown="setPos()" onmouseup="Get_Lastpos()">
         <img class="logo" src="RBST.ico1" alt="logo" >
         <span class="TitleText themeColorText">备份还原开始菜单 </span>
-        <span class="TitleText themeColorText" style="font-size:18px">v0.6.1 By --@YUPHIZ </span>
+        <span class="TitleText themeColorText" style="font-size:18px">v0.6.2 By --@YUPHIZ </span>
     </div>
     
 </div> 

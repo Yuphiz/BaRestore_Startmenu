@@ -2,20 +2,20 @@ param (
     $BackvpFolder,
     [switch]$WithTaskBar
 )
-$Host.UI.RawUI.WindowTitle = 'æ­£åœ¨å¤‡ä»½â€¦â€¦è¿™ä¸éœ€è¦å¾ˆä¹…ï¼Œè¯·è€å¿ƒç­‰å€™'
+$Host.UI.RawUI.WindowTitle = 'ÕıÔÚ±¸·İ¡­¡­Õâ²»ĞèÒªºÜ¾Ã£¬ÇëÄÍĞÄµÈºò'
 
 Export-startlayout -path "$BackvpFolder\startmenulayout.xml"
 <#
-'å£°æ˜
-'è„šæœ¬ï¼šå¤‡ä»½è¿˜åŸå¼€å§‹èœå•
-'ç‰ˆæœ¬ï¼šbeta 0.6.1
-'è¯´æ˜ï¼šæœ¬è„šæœ¬å¯ä»¥å¤‡ä»½å’Œè¿˜åŸå¼€å§‹èœå•å¸ƒå±€
+'ÉùÃ÷
+'½Å±¾£º±¸·İ»¹Ô­¿ªÊ¼²Ëµ¥
+'°æ±¾£ºbeta 0.6.2
+'ËµÃ÷£º±¾½Å±¾¿ÉÒÔ±¸·İºÍ»¹Ô­¿ªÊ¼²Ëµ¥²¼¾Ö
 
 
-'ä½œè€…ï¼šYUPHIZ
-'ç‰ˆæƒï¼šæ­¤è„šæœ¬ç‰ˆæƒå½’YUPHIZæ‰€æœ‰
-    'å‡¡ç”¨æ­¤è„šæœ¬ä»äº‹æ³•å¾‹ä¸å…è®¸çš„äº‹æƒ…çš„ï¼Œå‡ä¸æœ¬ä½œè€…æ— å…³
-    'æ­¤è„šæœ¬éµå¾ª gpl3.0 and lateråè®® #>
+'×÷Õß£ºYUPHIZ
+'°æÈ¨£º´Ë½Å±¾°æÈ¨¹éYUPHIZËùÓĞ
+    '·²ÓÃ´Ë½Å±¾´ÓÊÂ·¨ÂÉ²»ÔÊĞíµÄÊÂÇéµÄ£¬¾ùÓë±¾×÷ÕßÎŞ¹Ø
+    '´Ë½Å±¾×ñÑ­ gpl3.0 and laterĞ­Òé #>
 function Compress-Files($SourcePath,$ZipFilenPath){
     if (test-path $ZipFilenPath){remove-item $ZipFilenPath -Recurse -force}
     Add-Type -Assembly System.IO.Compression
@@ -39,7 +39,7 @@ function Compress-Files($SourcePath,$ZipFilenPath){
         }
         $Archive.getentry($entry).ExternalAttributes = $attribute #Z#
         if ($UnzipTime.Elapsed.TotalMilliseconds -ge 500) { 
-            [console]::write("å·²å®Œæˆ{0} / {1}",$count,$Total)
+            [console]::write("ÒÑÍê³É{0} / {1}",$count,$Total)
             $zipTime.Reset(); $zipTime.Start()
         }
     }
@@ -49,11 +49,11 @@ function Compress-Files($SourcePath,$ZipFilenPath){
 $StartUserFolder = "$env:APPDATA\Microsoft\Windows\Start Menu\Programs"
 $StartAllUserFolder = "$env:ProgramData\Microsoft\Windows\Start Menu"
 
-Compress-Files $StartUserFolder "$BackvpFolder\å¼€å§‹èœå•å¿«æ·æ–¹å¼User.zip" #U#
-Compress-Files $StartAllUserFolder "$BackvpFolder\å¼€å§‹èœå•å¿«æ·æ–¹å¼Alluser.zip"
+Compress-Files $StartUserFolder "$BackvpFolder\¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½User.zip" #U#
+Compress-Files $StartAllUserFolder "$BackvpFolder\¿ªÊ¼²Ëµ¥¿ì½İ·½Ê½Alluser.zip"
 if ($WithTaskBar){
     $TaskBarFolder = "$env:AppData\Microsoft\Internet Explorer\Quick Launch\User Pinned\TaskBar"
-    Compress-Files $TaskBarFolder "$BackvpFolder\ä»»åŠ¡æ å¿«æ·æ–¹å¼.zip"
+    Compress-Files $TaskBarFolder "$BackvpFolder\ÈÎÎñÀ¸¿ì½İ·½Ê½.zip"
 }
 
-write-host å¤‡ä»½ç»“æŸ
+write-host ±¸·İ½áÊø
