@@ -6,6 +6,14 @@
 
 ​<img src="https://github.com/Yuphiz/Public/blob/main/BackRestoreStartmenu/collage.png" width = "400" height = "450" alt="GUI demo" align=center />
 
+
+### 更新 0.6.2
+见此问题 [issue](https://github.com/Yuphiz/BaRestore_Startmenu/issues/5)  
+有些旧的win10版本没有深浅色主题，或者有些人删掉了HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize\AppsUseLightTheme注册表  
+这个版本是修复没有此注册表的报错  
+
+
+
 ### 重要更新 0.6.1
 0.5-beta和0.6.0两个版本存在[当路径有空格就无法备份快捷方式的bug]  
 见此问题 [issue](https://github.com/Yuphiz/BaRestore_Startmenu/issues/4#issue-1218504890) 感谢[Vectorsmiracle](https://github.com/Vectorsmiracle) 提交此问题  
